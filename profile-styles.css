@@ -1,0 +1,404 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d  50%, #093637 100%);
+    min-height: 100vh;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+/* Page Container */
+.page-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px 0;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    text-align: center;
+    padding: 0 20px 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logo-icon {
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+}
+
+.logo-icon i {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.sidebar-header h2 {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.sidebar-nav {
+    padding-top: 20px;
+    position: relative;
+    height: calc(100vh - 140px);
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+    font-size: 14px;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-left-color: #ffffff;
+}
+
+.nav-item.logout {
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 40px);
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.nav-item i {
+    margin-right: 12px;
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 250px;
+    padding: 40px;
+    width: calc(100% - 250px);
+    flex: 1;
+}
+
+/* Page Header */
+.page-header {
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Container */
+.profile-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+    max-width: 1200px;
+}
+
+/* Profile Card */
+.profile-card {
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    height: fit-content;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.profile-picture i {
+    font-size: 40px;
+    color: #ffffff;
+}
+
+.profile-card h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.edit-profile-btn {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.edit-profile-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Forms Section */
+.personal-info-section,
+.password-section {
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.section-header i {
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.section-header h3,
+.password-section h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* Form Styles */
+.personal-info-form,
+.password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.form-group input {
+    padding: 12px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Save Button */
+.save-btn {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 12px 30px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+.save-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .profile-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .main-content {
+        padding: 30px;
+    }
+    
+    .page-header h1 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    
+    .main-content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+        padding: 20px;
+    }
+    
+    .page-header h1 {
+        font-size: 32px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .personal-info-section,
+    .password-section {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 60px;
+    }
+    
+    .sidebar-header h2 {
+        font-size: 10px;
+    }
+    
+    .nav-item span {
+        display: none;
+    }
+    
+    .nav-item {
+        justify-content: center;
+        padding: 15px 10px;
+    }
+    
+    .main-content {
+        margin-left: 60px;
+        width: calc(100% - 60px);
+        padding: 15px;
+    }
+    
+    .page-header h1 {
+        font-size: 28px;
+    }
+    
+    .profile-card {
+        padding: 20px;
+    }
+    
+    .profile-picture {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .profile-picture i {
+        font-size: 30px;
+    }
+}
+
+/* Glassmorphism Effects */
+.sidebar,
+.profile-card,
+.personal-info-section,
+.password-section {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Accessibility */
+.nav-item:focus,
+.edit-profile-btn:focus,
+.save-btn:focus,
+.form-group input:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+/* Smooth Animations */
+.nav-item,
+.edit-profile-btn,
+.save-btn,
+.form-group input {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Print Styles */
+@media print {
+    .sidebar {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+}

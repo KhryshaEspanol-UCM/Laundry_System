@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laundry Shop - Settings</title>
+    <link rel="stylesheet" href="settings-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <h2>WASH & FOLD<br>LAUNDRY SHOP</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>DASHBOARD</span>
+                </a>
+                <a href="home.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>HOME</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>PROFILE</span>
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>ORDERS</span>
+                </a>
+                <a href="settings.html" class="nav-item active">
+                    <i class="fas fa-cog"></i>
+                    <span>SETTINGS</span>
+                </a>
+                <a href="#" class="nav-item logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>LOG OUT</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header Section -->
+            <header class="page-header">
+                <h1>SETTINGS</h1>
+            </header>
+
+            <div class="settings-container">
+                <!-- Preferences Section -->
+                <section class="preferences-section">
+                    <div class="section-header">
+                        <i class="fas fa-sliders-h"></i>
+                        <h3>Preferences</h3>
+                    </div>
+                    
+                    <div class="preferences-content">
+                        <!-- Email Notifications -->
+                        <div class="preference-item">
+                            <div class="preference-info">
+                                <h4>Email Notifications</h4>
+                                <p>Receive updates about your orders</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="emailNotifications" checked>
+                                <label for="emailNotifications" class="toggle-label">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- SMS Notifications -->
+                        <div class="preference-item">
+                            <div class="preference-info">
+                                <h4>SMS Notifications</h4>
+                                <p>Get text alerts for order status</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="smsNotifications" checked>
+                                <label for="smsNotifications" class="toggle-label">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Promotional Emails -->
+                        <div class="preference-item">
+                            <div class="preference-info">
+                                <h4>Promotional Emails</h4>
+                                <p>Receive special offers and discounts</p>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="promotionalEmails" checked>
+                                <label for="promotionalEmails" class="toggle-label">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Dark Mode Section -->
+                <section class="dark-mode-section">
+                    <div class="dark-mode-content">
+                        <div class="dark-mode-info">
+                            <h4>Dark Mode / Light Mode</h4>
+                            <p>Customize your display settings. Dark Mode reduces eye strain, while Light Mode provides a bright interface.</p>
+                        </div>
+                        <div class="toggle-switch dark-mode-toggle">
+                            <input type="checkbox" id="darkModeToggle">
+                            <label for="darkModeToggle" class="toggle-label">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact & Support Section -->
+                <section class="contact-support-section">
+                    <div class="section-header">
+                        <i class="fas fa-headset"></i>
+                        <h3>Contact & Support</h3>
+                    </div>
+                    
+                    <div class="contact-content">
+                        <div class="contact-info">
+                            <p class="contact-subtitle">Need help? You can find us at:</p>
+                            
+                            <div class="contact-details">
+                                <div class="contact-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div class="contact-text">
+                                        <strong>Address</strong>
+                                        <span>413 Sanciangko Street, Cebu City</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <div class="contact-text">
+                                        <strong>Email</strong>
+                                        <span>wash.and.fold@gmail.com</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <div class="contact-text">
+                                        <strong>Phone</strong>
+                                        <span>+63 923 345 7899 / 813 1234</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Feedback Form -->
+                        <div class="feedback-form-container">
+                            <form class="feedback-form" id="feedbackForm">
+                                <div class="form-group">
+                                    <label for="feedbackName">Your Name</label>
+                                    <input type="text" id="feedbackName" name="feedbackName" placeholder="Name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="feedbackMessage">Your Message</label>
+                                    <textarea id="feedbackMessage" name="feedbackMessage" placeholder="Share your feedback here..." rows="4" required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="send-feedback-btn">
+                                    Send Feedback
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="shared-script.js"></script>
+    <script src="settings-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laundry Shop - Orders</title>
+    <link rel="stylesheet" href="orders-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <h2>WASH & FOLD<br>LAUNDRY SHOP</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>DASHBOARD</span>
+                </a>
+                <a href="home.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>HOME</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>PROFILE</span>
+                </a>
+                <a href="orders.html" class="nav-item active">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>ORDERS</span>
+                </a>
+                <a href="#" class="nav-item">
+                <a href="settings.html" class="nav-item">
+                    <span>SETTINGS</span>
+                </a>
+                <a href="#" class="nav-item logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>LOG OUT</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header Section -->
+            <header class="page-header">
+                <h1>ORDERS</h1>
+                <div class="header-actions">
+                <div class="header-actions">
+                    <button class="action-btn new-order-btn">
+                        <i class="fas fa-plus"></i>
+                        <span>New Order</span>
+                    </button>
+                    <div class="filter-dropdown">
+                        <select id="statusFilter">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="ready">Ready for Pickup</option>
+                        </select>
+                    </div>
+                </div>
+
+            <!-- Orders Summary Cards -->
+            <!-- Orders Summary Cards -->
+            <section class="orders-summary">
+                <div class="summary-card pending">
+                    <div class="summary-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="summary-info">
+                        <h3>5</h3>
+                        <p>Pending Orders</p>
+                    </div>
+                </div>
+                <div class="summary-card in-progress">
+                    <div class="summary-icon">
+                        <i class="fas fa-spinner"></i>
+                    </div>
+                    <div class="summary-info">
+                        <h3>8</h3>
+                        <p>In Progress</p>
+                    </div>
+                </div>
+                <div class="summary-card ready">
+                    <div class="summary-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="summary-info">
+                        <h3>3</h3>
+                        <p>Ready for Pickup</p>
+                    </div>
+                </div>
+                <div class="summary-card completed">
+                    <div class="summary-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="summary-info">
+                        <h3>24</h3>
+                        <p>Completed Today</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Table -->
+            <section class="orders-table-section">
+                <div class="table-container">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer Name</th>
+                                <th>Service Type</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr data-status="pending">
+                                <td>#ORD-001</td>
+                                <td>John Smith</td>
+                                <td>Wash & Dry</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td>2024-01-15</td>
+                                <td>
+                                    <button class="view-details-btn" onclick="openOrderModal('ORD-001')">
+                                        <i class="fas fa-eye"></i>
+                                        View Details
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr data-status="in-progress">
+                                <td>#ORD-002</td>
+                                <td>Sarah Johnson</td>
+                                <td>Wash, Dry & Fold</td>
+                                <td><span class="status-badge in-progress">In Progress</span></td>
+                                <td>2024-01-15</td>
+                                <td>
+                                    <button class="view-details-btn" onclick="openOrderModal('ORD-002')">
+                                        <i class="fas fa-eye"></i>
+                                        View Details
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr data-status="ready">
+                                <td>#ORD-003</td>
+                                <td>Michael Brown</td>
+                                <td>Iron Only</td>
+                                <td><span class="status-badge ready">Ready for Pickup</span></td>
+                                <td>2024-01-14</td>
+                                <td>
+                                    <button class="view-details-btn" onclick="openOrderModal('ORD-003')">
+                                        <i class="fas fa-eye"></i>
+                                        View Details
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr data-status="completed">
+                                <td>#ORD-004</td>
+                                <td>Emily Davis</td>
+                                <td>Full Service</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td>2024-01-14</td>
+                                <td>
+                                    <button class="view-details-btn" onclick="openOrderModal('ORD-004')">
+                                        <i class="fas fa-eye"></i>
+                                        View Details
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr data-status="in-progress">
+                                <td>#ORD-005</td>
+                                <td>David Wilson</td>
+                                <td>Wash & Dry</td>
+                                <td><span class="status-badge in-progress">In Progress</span></td>
+                                <td>2024-01-15</td>
+                                <td>
+                                    <button class="view-details-btn" onclick="openOrderModal('ORD-005')">
+                                        <i class="fas fa-eye"></i>
+                                        View Details
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr data-status="pending">
+                                <td>#ORD-006</td>
+                                <td>Lisa Anderson</td>
+                                <td>Dry Clean</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td>2024-01-15</td>
+                                <td>
+                                    <button class="view-details-btn" onclick="openOrderModal('ORD-006')">
+                                        <i class="fas fa-eye"></i>
+                                        View Details
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+    <!-- Order Details Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Order Details</h2>
+                <button class="close-btn" onclick="closeOrderModal()">&times;</button>
+            <div class="orders-container">
+                <p>Orders page content coming soon...</p>
+            </div>
+            <div class="modal-body">
+            <div class="modal-body">
+                <div class="order-info-grid">
+                    <div class="info-group">
+                        <label>Order ID:</label>
+                        <span id="modalOrderId">#ORD-001</span>
+                    </div>
+                    <div class="info-group">
+                        <label>Customer Name:</label>
+                        <span id="modalCustomerName">John Smith</span>
+                    </div>
+                    <div class="info-group">
+                        <label>Service Type:</label>
+                        <span id="modalServiceType">Wash & Dry</span>
+                    </div>
+                    <div class="info-group">
+                        <label>Status:</label>
+                        <span id="modalStatus" class="status-badge pending">Pending</span>
+                    </div>
+                    <div class="info-group">
+                        <label>Order Date:</label>
+                        <span id="modalDate">2024-01-15</span>
+                    </div>
+                    <div class="info-group">
+                        <label>Estimated Completion:</label>
+                        <span id="modalEstimated">2024-01-16 14:00</span>
+                    </div>
+                    <div class="info-group">
+                        <label>Total Amount:</label>
+                        <span id="modalAmount">$25.00</span>
+                    </div>
+                    <div class="info-group">
+                        <label>Payment Status:</label>
+                        <span id="modalPayment">Paid</span>
+                    </div>
+                </div>
+                <div class="notes-section">
+                    <label>Additional Notes:</label>
+                    <p id="modalNotes">Handle with care. Customer requested extra fabric softener.</p>
+                </div>
+                <div class="modal-actions">
+                    <button class="action-btn update-status-btn">
+                        <i class="fas fa-edit"></i>
+                        Update Status
+                    </button>
+                    <button class="action-btn print-btn">
+                        <i class="fas fa-print"></i>
+                        Print Receipt
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared-script.js"></script>
+    <script src="orders-script.js"></script>
+</body>
+</html>

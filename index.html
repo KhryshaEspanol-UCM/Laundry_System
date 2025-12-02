@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laundry Shop Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <h2>WASH & FOLD<br>LAUNDRY SHOP</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>DASHBOARD</span>
+                </a>
+                <a href="home.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>HOME</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>PROFILE</span>
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>ORDERS</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>SETTINGS</span>
+                </a>
+                <a href="#" class="nav-item logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>LOG OUT</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header Section -->
+            <header class="dashboard-header">
+                <h1>DASHBOARD</h1>
+                <div class="shop-status-card">
+                    <h3>Current Shop Status</h3>
+                    <div class="status-info">
+                        <p><strong>SHOP HOURS:</strong><br>
+                        MON-FRI: 8:00 AM - 6:00 PM<br>
+                        SAT-SUN: 9:00 AM - 5:00 PM</p>
+                        <p><strong>Address:</strong><br>
+                        123 Main Street, City, State 12345</p>
+                        <div class="status-badge closed">CLOSED</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Sales Overview Chart -->
+                <section class="chart-section">
+                    <h3>SALES OVERVIEW</h3>
+                    <div class="chart-container">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- Notifications -->
+                <section class="notifications-section">
+                    <div class="notification-header">
+                        <span class="notification-badge">3</span>
+                        <h3>NOTIFICATIONS</h3>
+                    </div>
+                    <ul class="notification-list">
+                        <li>Your laundry order is ready for pickup!</li>
+                        <li>Please drop off your clothes before 4 PM today.</li>
+                        <li>You have 1 pending order awaiting confirmation.</li>
+                    </ul>
+                </section>
+
+                <!-- Action Buttons -->
+                <section class="action-buttons">
+                    <button class="action-btn">
+                        <i class="fas fa-plus"></i>
+                        <span>NEW ORDERS</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-hand-paper"></i>
+                        <span>PICK UP REQUEST</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-clock"></i>
+                        <span>EXTEND TODAY</span>
+                    </button>
+                </section>
+
+                <!-- Membership Program -->
+                <section class="membership-card">
+                    <h3>JOIN OUR MEMBERSHIP PROGRAM</h3>
+                    <p>Get exclusive discounts and priority service! Enjoy up to 20% off on all services with our latest offers.</p>
+                    <button class="membership-btn" onclick="openMembershipModal()">GET MEMBERSHIP</button>
+                </section>
+
+                <!-- Monthly Spending Summary -->
+                <section class="spending-summary">
+                    <h3>Monthly Spending Summary</h3>
+                    <div class="spending-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">$1,250</span>
+                            <span class="stat-label">Total Spent in October</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">15</span>
+                            <span class="stat-label">Total Orders This Month</span>
+                        </div>
+                    </div>
+                    <div class="spending-chart">
+                        <canvas id="spendingChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- On-Demand Orders -->
+                <section class="orders-section">
+                    <h3>ON-DEMAND ORDERS</h3>
+                    <div class="order-cards">
+                        <div class="order-card in-progress">
+                            <h4>IN PROGRESS</h4>
+                            <p>Order #12345<br>Estimated completion: 2 hours</p>
+                            <span class="order-status">Processing</span>
+                        </div>
+                        <div class="order-card ready">
+                            <h4>READY FOR PICKUP</h4>
+                            <p>Order #12344<br>Ready since: 2:30 PM</p>
+                            <span class="order-status">Ready</span>
+                        </div>
+                        <div class="order-card completed">
+                            <h4>COMPLETED</h4>
+                            <p>Order #12343<br>Picked up: Yesterday</p>
+                            <span class="order-status">Complete</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Laundry Tips & Reminders -->
+                <section class="tips-section">
+                    <h3>Laundry Tips & Reminders</h3>
+                    <div class="tips-list">
+                        <div class="tip-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Sort clothes by color and fabric type before washing</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Remember: Collect finished laundry within 2 days to avoid extra charges</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Enhanced Rate Our Business -->
+                <section class="rating-section">
+                    <h3>RATE OUR BUSINESS</h3>
+                    <div class="star-rating-grid" id="starRatingGrid">
+                        <!-- Stars will be generated by JavaScript -->
+                    </div>
+                    <button class="submit-rating-btn" onclick="submitRating()">Submit</button>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Membership Application Modal -->
+    <div id="membershipModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Apply for Membership</h2>
+                <button class="close-btn" onclick="closeMembershipModal()">&times;</button>
+            </div>
+            <form class="membership-form" id="membershipForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name: *</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactNumber">Contact Number: *</label>
+                    <input type="tel" id="contactNumber" name="contactNumber" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Address (Optional):</label>
+                    <input type="text" id="address" name="address">
+                </div>
+                
+                <div class="form-group">
+                    <label>Choose Membership Type:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="regular" name="membershipType" value="regular" checked>
+                            <label for="regular">Regular (Free)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="premium" name="membershipType" value="premium">
+                            <label for="premium">Premium (With Discounts)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="vip" name="membershipType" value="vip">
+                            <label for="vip">VIP (With Discounts + Free Delivery)</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Preferred Payment Method:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="cash" name="paymentMethod" value="cash" checked>
+                            <label for="cash">Cash</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="gcash" name="paymentMethod" value="gcash">
+                            <label for="gcash">GCash</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="paymaya" name="paymentMethod" value="paymaya">
+                            <label for="paymaya">Paymaya</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">✓ SUBMIT APPLICATION</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-btn" onclick="closeConfirmationModal()">&times;</button>
+            </div>
+            <div class="confirmation-content">
+                <h2>Membership Application Submitted</h2>
+                <p>Thank you for applying!<br>
+                Your membership request has been received.</p>
+                <p>We will notify you once it is approved.</p>
+                <button class="ok-btn" onclick="closeConfirmationModal()">✓ OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared-script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
