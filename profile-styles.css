@@ -1,4 +1,32 @@
-/* Reset and Base Styles */
+/* CSS Variables */
+:root {
+    --bg-gradient: linear-gradient(135deg, #4ecdc4 0%, #44a08d 50%, #093637 100%);
+    --sidebar-bg: rgba(255, 255, 255, 0.1);
+    --card-bg: rgba(255, 255, 255, 0.15);
+    --input-bg: rgba(255, 255, 255, 0.1);
+    --input-text: #ffffff;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.8);
+    --border-color: rgba(255, 255, 255, 0.2);
+    --toggle-active: #4ecdc4;
+    --button-bg: #4ecdc4;
+}
+
+/* Dark Mode Variables */
+.dark-mode {
+    --bg-gradient: linear-gradient(135deg, #1a1a2e, #16213e, #0f1419);
+    --sidebar-bg: rgba(26, 26, 46, 0.95);
+    --card-bg: rgba(0, 0, 0, 0.3);
+    --input-bg: rgba(255, 255, 255, 0.1);
+    --input-text: #fff;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.8);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --toggle-active: #64b5f6;
+    --button-bg: #64b5f6;
+}
+
+/* Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -6,10 +34,12 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inria Serif', serif;
     background: linear-gradient(135deg, #4ecdc4 0%, #44a08d  50%, #093637 100%);
+    background: var(--bg-gradient);
     min-height: 100vh;
     color: #ffffff;
+    color: var(--text-primary);
     line-height: 1.6;
 }
 
@@ -23,8 +53,10 @@ body {
 .sidebar {
     width: 250px;
     background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--sidebar-bg);
     backdrop-filter: blur(10px);
     border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid var(--border-color);
     padding: 20px 0;
     position: fixed;
     height: 100vh;
@@ -35,10 +67,12 @@ body {
     text-align: center;
     padding: 0 20px 30px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .logo-icon {
     background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--card-bg);
     width: 50px;
     height: 50px;
     border-radius: 8px;
@@ -55,6 +89,7 @@ body {
 
 .sidebar-header h2 {
     color: #ffffff;
+    color: var(--text-primary);
     font-size: 16px;
     font-weight: bold;
     line-height: 1.2;
@@ -71,6 +106,7 @@ body {
     align-items: center;
     padding: 15px 20px;
     color: rgba(255, 255, 255, 0.8);
+    color: var(--text-secondary);
     text-decoration: none;
     transition: all 0.3s ease;
     border-left: 3px solid transparent;
@@ -117,6 +153,7 @@ body {
     font-weight: bold;
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: var(--text-primary);
 }
 
 /* Profile Container */
@@ -130,8 +167,10 @@ body {
 /* Profile Card */
 .profile-card {
     background-color: rgba(255, 255, 255, 0.15);
+    background-color: var(--card-bg);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 30px;
     text-align: center;
@@ -143,6 +182,7 @@ body {
     height: 100px;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--card-bg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -153,6 +193,7 @@ body {
 .profile-picture i {
     font-size: 40px;
     color: #ffffff;
+    color: var(--text-primary);
 }
 
 .profile-card h2 {
@@ -160,11 +201,14 @@ body {
     font-weight: bold;
     margin-bottom: 20px;
     color: #ffffff;
+    color: var(--text-primary);
 }
 
 .edit-profile-btn {
     background-color: rgba(255, 255, 255, 0.2);
     color: #ffffff;
+    background-color: var(--card-bg);
+    color: var(--text-primary);
     border: 2px solid rgba(255, 255, 255, 0.3);
     padding: 10px 20px;
     border-radius: 25px;
@@ -183,8 +227,10 @@ body {
 .personal-info-section,
 .password-section {
     background-color: rgba(255, 255, 255, 0.15);
+    background-color: var(--card-bg);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 30px;
     margin-bottom: 30px;
@@ -200,6 +246,7 @@ body {
 .section-header i {
     font-size: 18px;
     color: #ffffff;
+    color: var(--text-primary);
 }
 
 .section-header h3,
@@ -207,6 +254,7 @@ body {
     font-size: 20px;
     font-weight: bold;
     color: #ffffff;
+    color: var(--text-primary);
     margin: 0;
 }
 
@@ -234,6 +282,7 @@ body {
     font-size: 14px;
     font-weight: 500;
     color: #ffffff;
+    color: var(--text-primary);
 }
 
 .form-group input {
@@ -242,6 +291,7 @@ body {
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.1);
     color: #ffffff;
+    color: var(--text-primary);
     font-size: 14px;
     transition: all 0.3s ease;
 }
@@ -260,6 +310,8 @@ body {
 .save-btn {
     background-color: rgba(255, 255, 255, 0.2);
     color: #ffffff;
+    background-color: var(--card-bg);
+    color: var(--text-primary);
     border: 2px solid rgba(255, 255, 255, 0.3);
     padding: 12px 30px;
     border-radius: 25px;
