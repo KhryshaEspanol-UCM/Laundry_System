@@ -1,226 +1,232 @@
-// ================= SETTINGS SCRIPT =================
+// Firebase Imports (Standard Setup)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+// Set Log Level for debugging
+setLogLevel('Debug');
+
+const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+
+// Check if config is valid before initializing
+let auth = null;
+let app = null;
+
+if (firebaseConfig && Object.keys(firebaseConfig).length > 0) {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    // Firestore initialization is necessary even if not used, to satisfy the environment requirements
+    getFirestore(app);
+
+    // Authentication logic
+    if (typeof __initial_auth_token !== 'undefined') {
+        signInWithCustomToken(auth, __initial_auth_token).catch(e => console.error("Firebase custom sign-in failed:", e));
+    } else {
+        signInAnonymously(auth).catch(e => console.error("Firebase anonymous sign-in failed:", e));
+    }
+}
+
+// --- Persistence Keys ---
+// Keys used for localStorage to remember user preferences across pages.
+const DARK_MODE_KEY = 'darkModeEnabled';
+const SIDEBAR_MINIMIZED_KEY = 'sidebarMinimized';
+// NEW: Notification Keys
+const NOTIF_ORDER_READY = 'notifOrderReady';
+const NOTIF_PROMOTIONS = 'notifPromotions';
+const NOTIF_NEW_FEATURES = 'notifNewFeatures';
+
+
 document.addEventListener('DOMContentLoaded', () => {
+    const body = document.body;
+    const sidebar = document.getElementById('sidebar');
+    const menuToggle = document.getElementById('menu-toggle');
+    const closeSidebarMobile = document.getElementById('close-sidebar'); 
+    const minimizeSidebar = document.getElementById('minimizeSidebar');
+    const maximizeSidebar = document.getElementById('maximizeSidebar');
+
+    // --- DARK MODE PERSISTENCE LOGIC ---
     const darkModeToggle = document.getElementById('darkModeToggle');
-    const emailNotifications = document.getElementById('emailNotifications');
-    const smsNotifications = document.getElementById('smsNotifications');
-    const promotionalEmails = document.getElementById('promotionalEmails');
-    const feedbackForm = document.getElementById('feedbackForm');
-    const feedbackName = document.getElementById('feedbackName');
-    const feedbackMessage = document.getElementById('feedbackMessage');
 
-    // Initialize settings on page load
-    initializeSettings();
+    const saveDarkModeState = (isEnabled) => {
+        localStorage.setItem(DARK_MODE_KEY, isEnabled ? 'true' : 'false');
+    };
 
-    // ===== DARK MODE =====
+    const loadAndSetDarkMode = () => {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedState = localStorage.getItem(DARK_MODE_KEY);
+        let isEnabled = storedState === 'true'; 
+
+        if (storedState === null) {
+            isEnabled = prefersDark;
+            saveDarkModeState(isEnabled);
+        }
+
+        if (isEnabled) {
+            body.classList.add('dark-mode');
+            if (darkModeToggle) darkModeToggle.checked = true;
+        } else {
+            body.classList.remove('dark-mode');
+            if (darkModeToggle) darkModeToggle.checked = false;
+        }
+    };
+
+    loadAndSetDarkMode();
+
     if (darkModeToggle) {
         darkModeToggle.addEventListener('change', () => {
-            toggleDarkMode(darkModeToggle.checked);
+            const isEnabled = darkModeToggle.checked;
+            body.classList.toggle('dark-mode', isEnabled);
+            saveDarkModeState(isEnabled); 
         });
     }
 
-    // ===== NOTIFICATION TOGGLES =====
-    const notificationToggles = [emailNotifications, smsNotifications, promotionalEmails];
-    notificationToggles.forEach(toggle => {
-        if (toggle) {
-            toggle.addEventListener('change', () => handleNotificationToggle(toggle));
-        }
-    });
 
-    // ===== FEEDBACK FORM =====
+    // --- NOTIFICATION TOGGLE PERSISTENCE LOGIC ---
+
+    /**
+     * Finds a toggle button by its ID and sets up persistence.
+     * @param {string} toggleId - The ID of the checkbox/toggle element (e.g., 'notifOrderReadyToggle').
+     * @param {string} storageKey - The key used in localStorage (e.g., NOTIF_ORDER_READY).
+     * @param {boolean} defaultState - The default state if no preference is found.
+     */
+    const setupTogglePersistence = (toggleId, storageKey, defaultState) => {
+        const toggle = document.getElementById(toggleId);
+        if (!toggle) return;
+
+        // 1. Load state
+        const storedState = localStorage.getItem(storageKey);
+        let isEnabled = defaultState;
+
+        // Check if a state is explicitly stored
+        if (storedState !== null) {
+            // localStorage stores strings, 'true' means enabled
+            isEnabled = storedState === 'true'; 
+        }
+
+        // Apply loaded state
+        toggle.checked = isEnabled;
+        
+        // 2. Add event listener to save state on change
+        toggle.addEventListener('change', () => {
+            localStorage.setItem(storageKey, toggle.checked ? 'true' : 'false');
+        });
+    };
+
+    // Apply persistence to all notification toggles
+    // This is the implementation you requested for persistence:
+    setupTogglePersistence('notifOrderReadyToggle', NOTIF_ORDER_READY, true);
+    setupTogglePersistence('notifPromotionsToggle', NOTIF_PROMOTIONS, false);
+    setupTogglePersistence('notifNewFeaturesToggle', NOTIF_NEW_FEATURES, true);
+
+    // --- SIDEBAR MOBILE LOGIC ---
+    const closeSidebar = () => {
+        sidebar.classList.add('-translate-x-full');
+    };
+
+    const openSidebar = () => {
+        sidebar.classList.remove('-translate-x-full');
+    };
+
+    if (menuToggle) menuToggle.addEventListener('click', openSidebar);
+    if (closeSidebarMobile) closeSidebarMobile.addEventListener('click', closeSidebar);
+
+
+    // --- SIDEBAR MINIMIZATION PERSISTENCE LOGIC (Desktop only) ---
+    
+    // Helper function to save sidebar state
+    const saveSidebarState = (isMinimized) => {
+        localStorage.setItem(SIDEBAR_MINIMIZED_KEY, isMinimized ? 'true' : 'false');
+    };
+
+    const minimize = () => {
+        body.classList.add('is-minimized');
+        if (minimizeSidebar) minimizeSidebar.style.display = 'none';
+        if (maximizeSidebar) maximizeSidebar.style.display = 'flex';
+        saveSidebarState(true); // Save state added here
+    };
+
+    const maximize = () => {
+        body.classList.remove('is-minimized');
+        if (minimizeSidebar) minimizeSidebar.style.display = 'block';
+        if (maximizeSidebar) maximizeSidebar.style.display = 'none';
+        saveSidebarState(false); // Save state added here
+    };
+
+    if (minimizeSidebar) minimizeSidebar.addEventListener('click', minimize);
+    if (maximizeSidebar) maximizeSidebar.addEventListener('click', maximize);
+
+    // Initial check for desktop view to set sidebar state
+    const checkWindowSize = () => {
+         // Only apply minimization controls on desktop (>= lg)
+        if (window.innerWidth >= 1024) { 
+            // Load state from local storage
+            const storedState = localStorage.getItem(SIDEBAR_MINIMIZED_KEY);
+            
+            // If state is stored and is 'true', minimize. Otherwise, maximize.
+            if (storedState === 'true') {
+                minimize();
+            } else {
+                maximize(); 
+            }
+            
+            // Ensure mobile close button is hidden on desktop
+            if (closeSidebarMobile) closeSidebarMobile.style.display = 'none';
+        } else {
+            // On mobile, ensure sidebar is initially closed and expanded state controls are hidden
+            closeSidebar(); 
+            if (minimizeSidebar) minimizeSidebar.style.display = 'none';
+            if (maximizeSidebar) maximizeSidebar.style.display = 'none';
+        }
+    };
+    
+    window.addEventListener('resize', checkWindowSize);
+    checkWindowSize(); // Run once on load
+
+
+    // --- FEEDBACK FORM LOGIC ---
+    const feedbackForm = document.getElementById('feedbackForm');
+    const feedbackSuccessMessage = document.getElementById('feedbackSuccessMessage');
+    const closeFeedbackSuccessMessageButton = document.getElementById('closeFeedbackSuccessMessage');
+
+    const resetFeedbackFields = () => {
+        if (feedbackForm) {
+            document.getElementById('feedbackName').value = '';
+            document.getElementById('feedbackMessage').value = '';
+        }
+    };
+
+    const closeModal = () => {
+        if (feedbackSuccessMessage) {
+            feedbackSuccessMessage.classList.add('hidden');
+        }
+    };
+
     if (feedbackForm) {
-        feedbackForm.addEventListener('submit', handleFeedbackSubmit);
-    }
-
-    // ===== KEYBOARD SHORTCUTS =====
-    document.addEventListener('keydown', (e) => {
-        // Ctrl/Cmd + D => toggle dark mode
-        if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+        feedbackForm.addEventListener('submit', (e) => {
+            if (!feedbackForm.checkValidity()) {
+                return;
+            }
+            
             e.preventDefault();
-            if (darkModeToggle) {
-                darkModeToggle.checked = !darkModeToggle.checked;
-                toggleDarkMode(darkModeToggle.checked);
+            
+            resetFeedbackFields();
+            
+            if (feedbackSuccessMessage) {
+                feedbackSuccessMessage.classList.remove('hidden');
             }
-        }
+        });
+    }
 
-        // Escape => close notifications
-        if (e.key === 'Escape') {
-            document.querySelectorAll('.notification').forEach(n => n.remove());
-        }
-    });
-
-    // ===== SYNC ACROSS TABS =====
-    window.addEventListener('storage', e => {
-        if (e.key === 'darkMode') {
-            const isDark = e.newValue === 'true';
-            if (darkModeToggle) darkModeToggle.checked = isDark;
-            toggleDarkMode(isDark);
-        }
-        if (['emailNotifications', 'smsNotifications', 'promotionalEmails'].includes(e.key)) {
-            const toggle = document.getElementById(e.key);
-            if (toggle) toggle.checked = e.newValue === 'true';
-        }
-    });
+    if (closeFeedbackSuccessMessageButton) {
+        closeFeedbackSuccessMessageButton.addEventListener('click', closeModal);
+    }
+    
+    if (feedbackSuccessMessage) {
+        feedbackSuccessMessage.addEventListener('click', (e) => {
+            if (e.target === feedbackSuccessMessage) {
+                closeModal();
+            }
+        });
+    }
 });
-
-// ===== INITIALIZE SETTINGS =====
-function initializeSettings() {
-    // Dark mode
-    const darkModeSaved = localStorage.getItem('darkMode') === 'true';
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    if (darkModeToggle) {
-        darkModeToggle.checked = darkModeSaved;
-        toggleDarkMode(darkModeSaved);
-    }
-
-    // Notification preferences
-    ['emailNotifications', 'smsNotifications', 'promotionalEmails'].forEach(id => {
-        const saved = localStorage.getItem(id) === 'true';
-        const toggle = document.getElementById(id);
-        if (toggle) toggle.checked = saved;
-    });
-}
-
-// ===== DARK MODE FUNCTION =====
-function toggleDarkMode(isDark) {
-    document.body.classList.toggle('dark-mode', isDark);
-    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    localStorage.setItem('darkMode', isDark);
-    applyThemeStyles(isDark);
-    showNotification(`${isDark ? 'Dark' : 'Light'} mode activated`, 'success');
-}
-
-function applyThemeStyles(isDark) {
-    const root = document.documentElement;
-    if (isDark) {
-        root.style.setProperty('--bg-gradient', 'linear-gradient(135deg, #1a1a2e, #16213e, #0f1419)');
-        root.style.setProperty('--sidebar-bg', 'rgba(26,26,46,0.95)');
-        root.style.setProperty('--card-bg', 'rgba(0,0,0,0.3)');
-        root.style.setProperty('--input-bg', 'rgba(255,255,255,0.1)');
-        root.style.setProperty('--input-text', '#fff');
-        root.style.setProperty('--text-primary', '#ffffff');
-        root.style.setProperty('--text-secondary', 'rgba(255,255,255,0.8)');
-        root.style.setProperty('--border-color', 'rgba(255,255,255,0.1)');
-        root.style.setProperty('--toggle-active', '#64b5f6');
-        root.style.setProperty('--button-bg', '#64b5f6');
-    } else {
-        root.style.setProperty('--bg-gradient', 'linear-gradient(135deg, #2d5a5a, #1a3d3d, #0f2626)');
-        root.style.setProperty('--sidebar-bg', 'rgba(45,90,90,0.9)');
-        root.style.setProperty('--card-bg', 'rgba(255,255,255,0.1)');
-        root.style.setProperty('--input-bg', 'rgba(255,255,255,0.9)');
-        root.style.setProperty('--input-text', '#333333');
-        root.style.setProperty('--text-primary', '#000000');
-        root.style.setProperty('--text-secondary', 'rgba(0,0,0,0.6)');
-        root.style.setProperty('--border-color', 'rgba(0,0,0,0.2)');
-        root.style.setProperty('--toggle-active', '#4ecdc4');
-        root.style.setProperty('--button-bg', '#4ecdc4');
-    }
-}
-
-// ===== HANDLE NOTIFICATION TOGGLES =====
-function handleNotificationToggle(toggle) {
-    const isEnabled = toggle.checked;
-    localStorage.setItem(toggle.id, isEnabled);
-    const names = {
-        emailNotifications: 'Email Notifications',
-        smsNotifications: 'SMS Notifications',
-        promotionalEmails: 'Promotional Emails'
-    };
-    showNotification(`${names[toggle.id] || toggle.id} ${isEnabled ? 'enabled' : 'disabled'}`, 'success');
-}
-
-// ===== FEEDBACK FORM =====
-function handleFeedbackSubmit(e) {
-    e.preventDefault();
-    const name = document.getElementById('feedbackName').value.trim();
-    const message = document.getElementById('feedbackMessage').value.trim();
-    if (!name) return showNotification('Please enter your name', 'error');
-    if (!message) return showNotification('Please enter your message', 'error');
-
-    console.log('Feedback submitted:', { name, message });
-    showNotification('Feedback sent successfully!', 'success');
-    e.target.reset();
-}
-
-// ===== NOTIFICATION SYSTEM =====
-function showNotification(message, type = 'info') {
-    const colors = { success: '#28a745', error: '#dc3545', info: '#17a2b8', warning: '#ffc107' };
-    const existing = document.querySelectorAll('.notification');
-    existing.forEach(n => n.remove());
-
-    const box = document.createElement('div');
-    box.className = `notification notification-${type}`;
-    box.innerHTML = `<span>${message}</span><button class="close-btn">×</button>`;
-    box.style.cssText = `
-        position: fixed; top: 20px; right: 20px; background: ${colors[type]};
-        color: white; padding: 15px 20px; border-radius: 8px; z-index: 1000;
-        display: flex; align-items: center; justify-content: space-between;
-        max-width: 350px; font-size: 14px; animation: slideInRight 0.3s ease;
-    `;
-    box.querySelector('.close-btn').onclick = () => box.remove();
-    document.body.appendChild(box);
-
-    setTimeout(() => {
-        box.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => box.remove(), 300);
-    }, 4000);
-}
-
-// ===== EXPORT SETTINGS =====
-function exportSettings() {
-    const settings = {
-        theme: localStorage.getItem('darkMode') === 'true' ? 'dark' : 'light',
-        emailNotifications: localStorage.getItem('emailNotifications') === 'true',
-        smsNotifications: localStorage.getItem('smsNotifications') === 'true',
-        promotionalEmails: localStorage.getItem('promotionalEmails') === 'true',
-        exportDate: new Date().toISOString()
-    };
-    const blob = new Blob([JSON.stringify(settings, null, 2)], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'settings.json';
-    link.click();
-    showNotification('Settings exported successfully', 'success');
-}
-
-// ===== IMPORT SETTINGS =====
-function importSettings(file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        try {
-            const settings = JSON.parse(e.target.result);
-            if (settings.theme) {
-                const isDark = settings.theme === 'dark';
-                localStorage.setItem('darkMode', isDark);
-                toggleDarkMode(isDark);
-                const darkToggle = document.getElementById('darkModeToggle');
-                if (darkToggle) darkToggle.checked = isDark;
-            }
-            ['emailNotifications', 'smsNotifications', 'promotionalEmails'].forEach(id => {
-                if (settings.hasOwnProperty(id)) {
-                    localStorage.setItem(id, settings[id]);
-                    const toggle = document.getElementById(id);
-                    if (toggle) toggle.checked = settings[id];
-                }
-            });
-            showNotification('Settings imported successfully', 'success');
-        } catch (err) {
-            console.error('Import error:', err);
-            showNotification('Error importing settings file', 'error');
-        }
-    };
-    reader.readAsText(file);
-}
-
-// ===== EXPORT MODULE =====
-window.SettingsManager = { toggleDarkMode, showNotification, initializeSettings, exportSettings, importSettings };
-
-// ===== ADD ANIMATIONS =====
-const style = document.createElement('style');
-style.textContent = `
-@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-@keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
-.notification { cursor: pointer; transition: transform 0.2s ease; }
-.notification:hover { transform: translateX(-5px); }
-.notification .close-btn:hover { background-color: rgba(255,255,255,0.2); border-radius: 50%; }
-`;
-document.head.appendChild(style);
