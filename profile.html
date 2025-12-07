@@ -3,63 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry Shop - Profile</title>
+    <title>WASH & FOLD LAUNDRY SHOP Profile</title>
+    
+    <!-- Link to external CSS -->
     <link rel="stylesheet" href="profile-styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN (Still needed for the utility classes in the HTML) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-    <div class="page-container">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="logo-icon">
-                    <i class="fas fa-tshirt"></i>
+<body class="font-body transition-[margin] duration-300">
+    <!-- Mobile Menu Button (Used to open the sidebar on mobile when hidden) -->
+    <button id="menu-toggle" class="lg:hidden fixed top-4 left-4 z-40 p-2 rounded-full bg-primary text-text-light shadow-lg">
+        <i class="fas fa-bars text-xl"></i>
+    </button>
+    
+    <!-- PROFILE PAGE CONTAINER -->
+    <div class="flex min-h-screen">
+        
+        <!-- FIXED SIDEBAR -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-30 transform -translate-x-full lg:translate-x-0 transition-all duration-300 ease-in-out w-64 text-text-light p-6 flex flex-col justify-between shadow-xl bg-sidebar-dark">
+            
+            <div>
+                <!-- Shop Logo/Title & Toggle Container -->
+                <div class="mb-10 flex flex-col items-start">
+                    
+                    <!-- Expanded State Header -->
+                    <div id="expanded-header" class="flex justify-between items-start w-full">
+                        <h1 id="sidebarTitle" class="text-xl font-heading font-semibold tracking-wider leading-tight">
+                            WASH & FOLD LAUNDRY SHOP
+                        </h1>
+                        
+                        <!-- Desktop Minimize Button (X in a box) -->
+                        <button id="minimizeSidebar" class="hidden lg:block text-sm p-1 rounded-md border-2 border-text-light hover:bg-secondary/20 transition duration-150 flex-shrink-0 ml-4">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        
+                        <!-- Mobile Close Button (for when mobile menu is open) -->
+                        <button id="close-sidebar" class="lg:hidden text-2xl p-1 rounded-full hover:bg-secondary/20 flex-shrink-0">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <!-- Minimized State Header (Icon only) -->
+                    <div id="minimized-header" class="hidden">
+                         <!-- Desktop Maximize Button (Hamburger icon) -->
+                        <button id="maximizeSidebar" class="text-3xl p-1 rounded-full hover:bg-secondary/20 transition duration-150">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
                 </div>
-                <h2>WASH & FOLD<br>LAUNDRY SHOP</h2>
+
+                <!-- Navigation Links -->
+                <nav class="space-y-3">
+                    <!-- Dashboard link -->
+                    <a href="dashboard.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150 text-text-light">
+                        <i class="fas fa-chart-line nav-icon text-xl"></i>
+                        <span class="nav-text">DASHBOARD</span>
+                    </a>
+                    <!-- Profile is ACTIVE -->
+                    <a href="profile.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl bg-secondary text-primary font-bold shadow-md">
+                        <i class="fas fa-user-circle nav-icon text-xl"></i>
+                        <span class="nav-text">PROFILE</span>
+                    </a>
+                    <!-- Orders link -->
+                    <a href="orders.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150 text-text-light">
+                        <i class="fas fa-shopping-basket nav-icon text-xl"></i>
+                        <span class="nav-text">ORDERS</span>
+                    </a>
+                </nav>
             </div>
-            <nav class="sidebar-nav">
-                <a href="index.html" class="nav-item">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>DASHBOARD</span>
+            
+            <!-- Bottom Links -->
+            <div class="space-y-3 pb-4">
+                <!-- Settings link -->
+                <a href="settings.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150 text-text-light">
+                    <i class="fas fa-cog nav-icon text-xl"></i>
+                    <span class="bottom-link-text">SETTINGS</span>
                 </a>
-                <a href="home.html" class="nav-item">
-                    <i class="fas fa-home"></i>
-                    <span>HOME</span>
+                <!-- Log Out link -->
+                <a href="logout.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150 text-text-light">
+                    <i class="fas fa-sign-out-alt nav-icon text-xl"></i>
+                    <span class="bottom-link-text">LOG OUT</span>
                 </a>
-                <a href="profile.html" class="nav-item active">
-                    <i class="fas fa-user"></i>
-                    <span>PROFILE</span>
-                </a>
-                <a href="orders.html" class="nav-item">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>ORDERS</span>
-                </a>
-                <a href="settings.html" class="nav-item">
-                    <i class="fas fa-cog"></i>
-                    <span>SETTINGS</span>
-                </a>
-                <a href="#" class="nav-item logout">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>LOG OUT</span>
-                </a>
-            </nav>
+            </div>
+
         </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Header Section -->
-            <header class="page-header">
-                <h1>PROFILE</h1>
+        <!-- SCROLLABLE MAIN CONTENT AREA -->
+        <main id="content-area" class="lg:ml-64 w-full p-6 lg:p-10 transition-all duration-300"> 
+            
+            <!-- HEADER SECTION -->
+            <header class="mb-10 lg:mb-16 relative">
+                <!-- Large PROFILE title -->
+                <h2 class="text-6xl font-heading font-light mb-6 uppercase opacity-80">PROFILE</h2>
+                
+                <!-- Subtitle (Optional, but keeping space for context) -->
+                <div class="ml-12">
+                    <p class="text-lg opacity-80">Manage your personal information and security settings.</p>
+                </div>
             </header>
 
-            <!-- Profile content will go here -->
-            <div class="profile-container">
-                <p>Profile page content coming soon...</p>
-            </div>
-        </main>
-    </div>
+            <!-- PROFILE MANAGEMENT SECTION -->
+            <section class="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
 
-    <script src="shared-script.js"></script>
+                <!-- Column 1: Profile Picture and Edit Button (Left Box) -->
+                <div class="lg:col-span-1 flex flex-col items-center profile-card p-6 rounded-2xl shadow-xl lg:self-start">
+                    
+                    <!-- Profile Picture Container: Modified to hold both icon and image -->
+                    <div id="profilePictureContainer" class="w-28 h-28 rounded-full border-4 border-secondary/50 bg-white/10 flex items-center justify-center mb-4 overflow-hidden">
+                        <!-- Default Font Awesome Icon -->
+                        <i id="defaultProfileIcon" class="fas fa-user text-5xl opacity-80"></i>
+                        <!-- Image element (hidden by default) -->
+                        <img id="profileImage" src="" alt="Profile Picture" class="w-full h-full object-cover hidden">
+                    </div>
+                    
+                    <!-- This ID is targeted for dynamic updates -->
+                    <p id="profileNameDisplay" class="text-2xl font-heading font-bold mb-1">John Doe</p>
+                    
+                    <!-- Link to trigger file manager -->
+                    <a href="#" id="changePictureLink" class="text-sm text-secondary hover:text-secondary/80 mb-6">Change profile picture</a>
+
+                    <!-- Hidden file input for picture selection -->
+                    <input type="file" id="fileInput" accept="image/*" class="hidden">
+
+                    <!-- Button to toggle edit mode -->
+                    <button id="editButton" class="primary-button py-2 px-6 rounded-full shadow-md w-full">
+                        Edit profile
+                    </button>
+                </div>
+
+                <!-- Column 2 & 3: Personal Information and Password Change (Right Box) -->
+                <div class="lg:col-span-2 space-y-10">
+
+                    <!-- Personal Information Card -->
+                    <div class="profile-card p-6 rounded-2xl shadow-xl">
+                        <h3 class="text-2xl font-heading font-normal opacity-95 mb-6 flex items-center space-x-2">
+                            <i class="fas fa-user-circle text-xl opacity-80"></i>
+                            <span>Personal Information</span>
+                        </h3>
+                        
+                        <!-- Form with hardcoded values restored -->
+                        <form id="infoForm" class="space-y-4">
+                            <!-- First Name and Last Name Row -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm opacity-80 mb-1">First Name</label>
+                                    <input type="text" name="firstName" value="Michael John" class="profile-input p-3 rounded-xl w-full" data-profile-field readonly>
+                                </div>
+                                <div>
+                                    <label class="block text-sm opacity-80 mb-1">Last Name</label>
+                                    <input type="text" name="lastName" value="Doe" class="profile-input p-3 rounded-xl w-full" data-profile-field readonly>
+                                </div>
+                            </div>
+
+                            <!-- Display Name Row -->
+                            <div>
+                                <label class="block text-sm opacity-80 mb-1">Display Name</label>
+                                <!-- The input field we need to track -->
+                                <input type="text" id="displayNameInput" name="displayName" value="John Doe" class="profile-input p-3 rounded-xl w-full" data-profile-field readonly>
+                            </div>
+
+                            <!-- Email Row -->
+                            <div>
+                                <label class="block text-sm opacity-80 mb-1">Email</label>
+                                <input type="email" name="email" value="john.doe@gmail.com" class="profile-input p-3 rounded-xl w-full" data-profile-field readonly>
+                            </div>
+                            
+                            <!-- Address Row -->
+                            <div>
+                                <label class="block text-sm opacity-80 mb-1">Address</label>
+                                <input type="text" name="address" value="321 Sanciangko Street, Cebu City" class="profile-input p-3 rounded-xl w-full" data-profile-field readonly>
+                            </div>
+
+                            <!-- Phone Number Row -->
+                            <div>
+                                <label class="block text-sm opacity-80 mb-1">Phone Number</label>
+                                <input type="tel" name="phone" value="09987654321" class="profile-input p-3 rounded-xl w-full" data-profile-field readonly>
+                            </div>
+                            
+                            <div class="pt-4 flex justify-end">
+                                <!-- Keeping this empty as the main button is on the left -->
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Password Change Card -->
+                    <div class="profile-card p-6 rounded-2xl shadow-xl">
+                        <h3 class="text-2xl font-heading font-normal opacity-95 mb-6">Password Change</h3>
+                        
+                        <!-- Password fields remain editable -->
+                        <form id="passwordForm" class="space-y-4">
+                            <!-- Current Password -->
+                            <div>
+                                <label class="block text-sm opacity-80 mb-1">Current password (leave blank to leave unchanged)</label>
+                                <input type="password" name="currentPassword" placeholder="••••••••" class="profile-input p-3 rounded-xl w-full">
+                            </div>
+
+                            <!-- New Password -->
+                            <div>
+                                <label class="block text-sm opacity-80 mb-1">New password (leave blank to leave unchanged)</label>
+                                <input type="password" name="newPassword" placeholder="••••••••" class="profile-input p-3 rounded-xl w-full">
+                            </div>
+
+                            <div class="pt-4">
+                                <button type="submit" class="primary-button py-2 px-6 rounded-full shadow-md">
+                                    Save Password
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+    
+    <!-- Password Change Success Modal/Message Box - Hidden by default -->
+    <div id="passwordSuccessMessage" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden" style="backdrop-filter: blur(2px);">
+        <!-- Modal Content: BORDER REMOVED -->
+        <div class="modal-content p-6 rounded-xl shadow-2xl max-w-sm w-full text-center">
+            <div class="text-secondary mb-4">
+                <i class="fas fa-check-circle text-4xl"></i>
+            </div>
+            <h4 class="text-xl font-heading font-bold mb-2">Password Updated!</h4>
+            <p class="text-sm">You have successfully changed your password.</p>
+            <!-- Button color adjusted for visibility against the new background -->
+            <button id="closeSuccessMessage" class="mt-4 primary-button hover:bg-primary/80 text-text-light font-bold py-2 px-4 rounded-full transition duration-150">
+                Close
+            </button>
+        </div>
+    </div>
     <script src="profile-script.js"></script>
 </body>
 </html>
