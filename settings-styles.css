@@ -1,237 +1,213 @@
-/* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* Define Custom Fonts - Reusing Inria Serif */
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
-/* --- LIGHT MODE VARIABLES (Default) --- */
-:root {
-    /* Palette: Light Teal/Jade */
-    --color-primary-dark: #1f3a3a;
-    --color-primary-light: #6cb0b0;
-
-    /* Backgrounds */
-    --bg-main: #90c8c8;
-    --bg-gradient: linear-gradient(135deg, #90c8c8, #7cb0b0, #6cb0b0);
-    --sidebar-bg: rgba(60, 110, 110, 0.95);
-    --card-bg: rgba(255, 255, 255, 0.3);
-    --card-bg-alt: rgba(255, 255, 255, 0.5);
-
-    /* Text & Borders */
-    --text-primary: var(--color-primary-dark);
-    --text-secondary: rgba(31, 58, 58, 0.7);
-    --text-muted: rgba(31, 58, 58, 0.5);
-    --border-color: rgba(255, 255, 255, 0.5);
-
-    /* Inputs & Controls */
-    --input-bg: rgba(255, 255, 255, 0.8);
-    --input-text: var(--color-primary-dark);
-    --input-border: rgba(255, 255, 255, 0.7);
-    --toggle-bg: rgba(31, 58, 58, 0.3);
-    --toggle-active: var(--color-primary-light);
-    --button-bg: var(--color-primary-light);
-    --button-hover: #5aa3a3;
-
-    /* Status Colors */
-    --success-color: #388e3c;
-    --warning-color: #f57f17;
-    --info-color: #0288d1;
-}
-
+/* APPLY GLOBAL FONT FAMILY */
 body {
-    font-family: 'Arial', sans-serif;
-    background: var(--bg-gradient);
-    min-height: 100vh;
-    color: var(--text-primary);
-    line-height: 1.6;
-    transition: all 0.3s ease;
+    font-family: 'Inria Serif', serif;
 }
 
-/* --- DARK MODE VARIABLES (Activated by .dark-mode) --- */
+/* Custom styles for the elegant teal/blue palette */
+:root {
+    /* === LIGHT MODE COLORS (DEFAULT) === */
+    --color-primary: #58A5A2; /* Accent color for links/active states */
+    --color-secondary: #C1E7E5; /* Light Mint (Used for active sidebar state) */
+    --color-text-dark: #333333; /* Dark text for inputs/light surfaces */
+    --color-text-light: #E0FFFF; /* Light text for dark backgrounds */
+    
+    /* BACKGROUNDS - Defined as variables for dynamic switching */
+    --bg-body: #58A5A2; 
+    --bg-sidebar: #4A8C8E;
+    --bg-card: rgba(74, 140, 142, 0.7); /* Semi-transparent card background */
+    --card-backdrop: blur(5px);
+    
+    /* NEW: Darker primary color for buttons */
+    --color-primary-dark: #4A8C8E; /* Matches sidebar background */
+}
+
+/* === DARK MODE OVERRIDES (Using requested Dark Teal Palette) === */
 body.dark-mode {
-    --color-primary-dark: #6cb0b0;
-    --color-primary-light: #90c8c8;
-
-    --bg-main: #1f3a3a;
-    --bg-gradient: linear-gradient(135deg, #1f3a3a, #152c2c, #0f1414);
-    --sidebar-bg: rgba(15, 20, 20, 0.95);
-    --card-bg: rgba(31, 58, 58, 0.8);
-    --card-bg-alt: rgba(31, 58, 58, 0.6);
-
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.8);
-    --text-muted: rgba(255, 255, 255, 0.6);
-    --border-color: rgba(255, 255, 255, 0.1);
-
-    --input-bg: rgba(255, 255, 255, 0.1);
-    --input-text: #ffffff;
-    --input-border: rgba(255, 255, 255, 0.2);
-
-    --toggle-bg: rgba(255, 255, 255, 0.2);
-    --toggle-active: var(--color-primary-light);
-
-    --button-bg: var(--color-primary-light);
-    --button-hover: var(--color-primary-dark);
-
-    --success-color: #76ff03;
-    --warning-color: #ffc107;
-    --info-color: #03a9f4;
+    --color-text-dark: #E0FFFF; /* Light text on dark surfaces */
+    --color-text-light: #333333; /* Dark text on light backgrounds (if any) */
+    
+    --bg-body: #142522; /* Requested: Body Background */
+    --bg-sidebar: #24554B; /* Requested: Sidebar Background */
+    --bg-card: rgba(36, 60, 58, 0.9); /* Requested: Containers/Boxes (#243C3A) with slight transparency for backdrop blur */
+    
+    --color-primary: #58A5A2; /* Keep light accent color */
+    --color-secondary: #C1E7E5; /* Keep light mint accent */
 }
 
-/* Page Container */
-.page-container {
+/* 1. Apply the full-page gradient background (now solid due to identical start/end colors) */
+body {
+    background-color: var(--bg-body);
+    color: var(--color-text-light); /* Default text color for the page background */
+}
+body.dark-mode {
+     background-color: var(--bg-body);
+     color: var(--color-text-dark); /* Light text on dark body */
+}
+
+/* 2. Main content background and styling */
+.profile-card {
+    /* Apply semi-transparent dark background */
+    background-color: var(--bg-card);
+    /* Apply backdrop filter for a frosted glass effect */
+    backdrop-filter: var(--card-backdrop);
+    -webkit-backdrop-filter: var(--card-backdrop); /* Safari support */
+}
+body.dark-mode .profile-card {
+    background-color: var(--bg-card);
+}
+
+/* 3. Primary Button Styling (for Send Feedback, Close Modal, etc.) */
+.primary-button {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    transition: background-color 0.15s ease-in-out;
+}
+.primary-button:hover {
+    background-color: var(--color-primary-dark);
+}
+
+/* 4. Input field styling */
+.profile-input {
+    color: var(--color-text-dark); /* Dark text color on input field */
+    background-color: var(--color-text-light); /* Light background for the input field */
+    border: 1px solid var(--color-primary);
+}
+body.dark-mode .profile-input {
+    color: var(--color-text-light); /* Light text color on dark input field */
+    /* Using sidebar color as input background for dark mode is a common pattern */
+    background-color: var(--bg-sidebar); 
+    border: 1px solid var(--color-primary);
+}
+
+/* 5. Modal content styling */
+.modal-content {
+    background-color: var(--bg-sidebar);
+    color: var(--color-text-light);
+}
+body.dark-mode .modal-content {
+    /* Using sidebar color for modal background in dark mode */
+    background-color: var(--bg-sidebar);
+    color: var(--color-text-dark);
+}
+
+/* 6. Sidebar Styling */
+.bg-sidebar-dark {
+    background-color: var(--bg-sidebar);
+}
+
+/* 7. Active Navigation Link Styling (The box you want to change) */
+.nav-item.bg-secondary {
+    /* Apply the light mint color to the background */
+    background-color: #C1E7E5; /* Same as --color-secondary */
+    /* Change text and icon color to dark teal for better matching the image's text */
+    color: #4A8C8E !important; 
+    /* The font-bold class in HTML will ensure text stands out */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 8. Toggle Switch Styling (Custom CSS needed as Tailwind doesn't have a component) */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--color-primary); /* Use primary color when checked */
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--color-primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+/* --- Sidebar Minimization CSS (Desktop) --- */
+/* (The following CSS is identical to profile.html for consistency) */
+
+/* Minimized State applied to the body */
+.is-minimized #sidebar {
+    width: 5rem; /* 80px, w-20 equivalent */
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+/* Adjust main content margin */
+.is-minimized #content-area {
+    margin-left: 5rem; /* Match sidebar width */
+}
+
+/* Hide the title and navigation text when minimized */
+.is-minimized #sidebarTitle,
+.is-minimized .nav-text,
+.is-minimized .bottom-link-text {
+    display: none !important;
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+/* Adjust item layout when minimized (icon-only view) */
+.is-minimized .nav-item {
+    justify-content: center; /* Center the icon */
+    padding: 0.75rem 0.5rem; /* Tighter padding */
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+/* Ensure icon width remains consistent */
+.nav-icon {
+    min-width: 1.25rem; 
+}
+
+/* Show/Hide Header Elements */
+.is-minimized #expanded-header {
+    display: none;
+}
+.is-minimized #minimized-header {
     display: flex;
-    min-height: 100vh;
-}
-
-/* --- Sidebar Styles --- */
-.sidebar {
-    width: 250px;
-    background: var(--sidebar-bg);
-    backdrop-filter: blur(10px);
-    border-right: 1px solid var(--border-color);
-    padding: 20px 0;
-    position: fixed;
-    height: 100vh;
-    overflow-y: auto;
-    transition: all 0.3s ease;
-    z-index: 1000;
-    color: var(--text-primary);
-}
-
-.sidebar-header {
-    padding: 0 20px 30px;
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.sidebar-header h2 {
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--text-primary);
-    font-family: 'Times New Roman', serif;
-}
-
-/* Navigation Items */
-.nav-item {
-    padding: 15px 25px;
-    display: flex;
+    justify-content: center;
     align-items: center;
-    color: var(--text-secondary);
-    transition: all 0.3s ease;
-    border-left: 3px solid transparent;
-    text-decoration: none;
-}
-
-.nav-item:hover {
-    background: var(--card-bg-alt);
-    color: var(--text-primary);
-    border-left-color: var(--toggle-active);
-}
-
-.nav-item.active {
-    background: var(--card-bg);
-    color: var(--text-primary);
-    border-left-color: var(--toggle-active);
-}
-
-/* --- Main Content --- */
-.main-content {
-    margin-left: 250px;
-    padding: 40px;
-    width: calc(100% - 250px);
-}
-
-/* Page Header */
-.page-header h1 {
-    font-size: 48px;
-    font-weight: normal;
-    color: var(--text-primary);
-    font-family: 'Times New Roman', serif;
-}
-
-/* --- Settings Sections --- */
-.preferences-section,
-.dark-mode-section,
-.contact-support-section {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 30px;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-}
-
-.section-header {
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-}
-
-.section-header i {
-    color: var(--color-primary-dark);
-}
-
-.section-header h3 {
-    color: var(--text-primary);
-}
-
-/* Toggle Switch Fix */
-.toggle-switch input[type="checkbox"]:checked + .toggle-label {
-    background: var(--color-primary-dark);
-}
-
-/* Settings Grid Layout */
-.settings-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
-    max-width: 1200px;
-}
-
-.dark-mode-section {
-    height: fit-content;
-}
-
-/* Contact / Feedback */
-.contact-item i {
-    color: var(--color-primary-dark);
-}
-
-.feedback-form-container {
-    background: var(--card-bg-alt);
-    border: 1px solid var(--border-color);
-}
-
-.form-group input,
-.form-group textarea {
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--input-text);
-}
-
-.send-feedback-btn {
-    background: var(--color-primary-light);
-    color: white;
-}
-
-.send-feedback-btn:hover {
-    background: var(--color-primary-dark);
-}
-
-/* --- Responsive --- */
-@media (max-width: 1024px) {
-    .settings-container {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }
-}
-
-@media (max-width: 768px) {
-    .main-content {
-        margin-left: 200px;
-        width: calc(100% - 200px);
-        padding: 20px;
-    }
+    width: 100%;
 }
