@@ -3,184 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry Shop - Settings</title>
+    <title>WASH & FOLD LAUNDRY SHOP Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="settings-styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    
 </head>
-<body>
-    <div class="page-container">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="logo-icon">
-                    <i class="fas fa-tshirt"></i>
+<body class="font-body transition-[margin] duration-300">
+    <!-- Mobile Menu Button (Used to open the sidebar on mobile when hidden) -->
+    <button id="menu-toggle" class="lg:hidden fixed top-4 left-4 z-40 p-2 rounded-full bg-primary text-text-light shadow-lg">
+        <i class="fas fa-bars text-xl"></i>
+    </button>
+    
+    <!-- SETTINGS PAGE CONTAINER -->
+    <div class="flex min-h-screen">
+        
+        <!-- FIXED SIDEBAR -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-30 transform -translate-x-full lg:translate-x-0 transition-all duration-300 ease-in-out w-64 text-text-light p-6 flex flex-col justify-between shadow-xl bg-sidebar-dark">
+            
+            <div>
+                <!-- Shop Logo/Title & Toggle Container -->
+                <div class="mb-10 flex flex-col items-start">
+                    
+                    <!-- Expanded State Header -->
+                    <div id="expanded-header" class="flex justify-between items-start w-full">
+                        <h1 id="sidebarTitle" class="text-xl font-heading font-semibold tracking-wider leading-tight">
+                            WASH & FOLD LAUNDRY SHOP
+                        </h1>
+                        
+                        <!-- Desktop Minimize Button (X in a box) -->
+                        <button id="minimizeSidebar" class="hidden lg:block text-sm p-1 rounded-md border-2 border-text-light hover:bg-secondary/20 transition duration-150 flex-shrink-0 ml-4">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        
+                        <!-- Mobile Close Button (for when mobile menu is open) -->
+                        <button id="close-sidebar" class="lg:hidden text-2xl p-1 rounded-full hover:bg-secondary/20 flex-shrink-0">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <!-- Minimized State Header (Icon only) -->
+                    <div id="minimized-header" class="hidden">
+                         <!-- Desktop Maximize Button (Hamburger icon) -->
+                        <button id="maximizeSidebar" class="text-3xl p-1 rounded-full hover:bg-secondary/20 transition duration-150">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
                 </div>
-                <h2>WASH & FOLD<br>LAUNDRY SHOP</h2>
+
+                <!-- Navigation Links -->
+                <nav class="space-y-3">
+                    <!-- Dashboard link -->
+                    <a href="dashboard.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150 text-text-light">
+                        <i class="fas fa-chart-line nav-icon text-xl"></i>
+                        <span class="nav-text">DASHBOARD</span>
+                    </a>
+                    <!-- Profile link -->
+                    <a href="profile.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150 text-text-light">
+                        <i class="fas fa-user-circle nav-icon text-xl"></i>
+                        <span class="nav-text">PROFILE</span>
+                    </a>
+                    <!-- Orders link -->
+                    <a href="orders.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150 text-text-light">
+                        <i class="fas fa-shopping-basket nav-icon text-xl"></i>
+                        <span class="nav-text">ORDERS</span>
+                    </a>
+                </nav>
             </div>
-            <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>DASHBOARD</span>
+            
+            <!-- Bottom Links -->
+            <div class="space-y-3 pb-4">
+                <!-- Settings link is ACTIVE -->
+                <a href="settings.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl bg-secondary text-text-light shadow-md">
+                    <i class="fas fa-cog nav-icon text-xl"></i>
+                    <span class="bottom-link-text">SETTINGS</span>
                 </a>
-                <a href="profile.html" class="nav-item">
-                    <i class="fas fa-user"></i>
-                    <span>PROFILE</span>
+                <!-- Log Out link -->
+                <a href="logout.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150 text-text-light">
+                    <i class="fas fa-sign-out-alt nav-icon text-xl"></i>
+                    <span class="bottom-link-text">LOG OUT</span>
                 </a>
-                <a href="orders.html" class="nav-item">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>ORDERS</span>
-                </a>
-                <a href="settings.html" class="nav-item active">
-                    <i class="fas fa-cog"></i>
-                    <span>SETTINGS</span>
-                </a>
-                <a href="mainpage.html" class="nav-item logout">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>LOG OUT</span>
-                </a>
-            </nav>
+            </div>
+
         </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Header Section -->
-            <header class="page-header">
-                <h1>SETTINGS</h1>
+        <!-- SCROLLABLE MAIN CONTENT AREA -->
+        <main id="content-area" class="lg:ml-64 w-full p-6 lg:p-10 transition-all duration-300"> 
+            
+            <!-- HEADER SECTION -->
+            <header class="mb-10 lg:mb-16 relative">
+                <!-- Large SETTINGS title -->
+                <h2 class="text-6xl font-heading font-light mb-6 uppercase opacity-80">SETTINGS</h2>
             </header>
 
-            <div class="settings-container">
-                <!-- Preferences Section -->
-                <section class="preferences-section">
-                    <div class="section-header">
-                        <i class="fas fa-sliders-h"></i>
-                        <h3>Preferences</h3>
-                    </div>
+            <!-- SETTINGS MANAGEMENT SECTION -->
+            <section class="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+                <!-- Preferences Card (Col 1 & 2) -->
+                <div class="lg:col-span-2 profile-card p-6 rounded-2xl shadow-xl">
+                    <h3 class="text-2xl font-heading font-normal opacity-95 mb-6 flex items-center space-x-2">
+                        <i class="fas fa-bell text-xl opacity-80"></i>
+                        <span>Preferences</span>
+                    </h3>
                     
-                    <div class="preferences-content">
-                        <!-- Email Notifications -->
-                        <div class="preference-item">
-                            <div class="preference-info">
-                                <h4>Email Notifications</h4>
-                                <p>Receive updates about your orders</p>
+                    <div class="space-y-6">
+                        
+                        <!-- Notification Item 1: Email Notifications (DEFAULT OFF) -->
+                        <div class="flex justify-between items-center py-2 border-b border-white/10 last:border-b-0">
+                            <div>
+                                <p class="text-lg font-bold">Email Notifications</p>
+                                <p class="text-sm opacity-80">Receive updates about your orders</p>
                             </div>
-                            <div class="toggle-switch">
-                                <input type="checkbox" id="emailNotifications" checked>
-                                <label for="emailNotifications" class="toggle-label">
-                                    <span class="toggle-slider"></span>
-                                </label>
+                            <!-- Toggle Switch for Email -->
+                            <label class="toggle-switch cursor-pointer" data-toggle-id="emailNotifications">
+                                <input type="checkbox" id="emailNotifications">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        
+                        <!-- Notification Item 2: SMS Notifications (DEFAULT OFF) -->
+                        <div class="flex justify-between items-center py-2 border-b border-white/10 last:border-b-0">
+                            <div>
+                                <p class="text-lg font-bold">SMS Notifications</p>
+                                <p class="text-sm opacity-80">Get text alerts for order status</p>
                             </div>
+                            <!-- Toggle Switch for SMS -->
+                            <label class="toggle-switch cursor-pointer" data-toggle-id="smsNotifications">
+                                <input type="checkbox" id="smsNotifications">
+                                <span class="slider round"></span>
+                            </label>
                         </div>
 
-                        <!-- SMS Notifications -->
-                        <div class="preference-item">
-                            <div class="preference-info">
-                                <h4>SMS Notifications</h4>
-                                <p>Get text alerts for order status</p>
+                        <!-- Notification Item 3: Promotional Emails (DEFAULT OFF) -->
+                        <div class="flex justify-between items-center py-2 border-b border-white/10 last:border-b-0">
+                            <div>
+                                <p class="text-lg font-bold">Promotional Emails</p>
+                                <p class="text-sm opacity-80">Receive special offers and discounts</p>
                             </div>
-                            <div class="toggle-switch">
-                                <input type="checkbox" id="smsNotifications" checked>
-                                <label for="smsNotifications" class="toggle-label">
-                                    <span class="toggle-slider"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Promotional Emails -->
-                        <div class="preference-item">
-                            <div class="preference-info">
-                                <h4>Promotional Emails</h4>
-                                <p>Receive special offers and discounts</p>
-                            </div>
-                            <div class="toggle-switch">
-                                <input type="checkbox" id="promotionalEmails" checked>
-                                <label for="promotionalEmails" class="toggle-label">
-                                    <span class="toggle-slider"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Dark Mode Section -->
-                <section class="dark-mode-section">
-                    <div class="dark-mode-content">
-                        <div class="dark-mode-info">
-                            <h4>Dark Mode / Light Mode</h4>
-                            <p>Customize your display settings. Dark Mode reduces eye strain, while Light Mode provides a bright interface.</p>
-                        </div>
-                        <div class="toggle-switch dark-mode-toggle">
-                            <input type="checkbox" id="darkModeToggle">
-                            <label for="darkModeToggle" class="toggle-label">
-                                <span class="toggle-slider"></span>
+                            <!-- Toggle Switch for Promotions -->
+                            <label class="toggle-switch cursor-pointer" data-toggle-id="promotionalEmails">
+                                <input type="checkbox" id="promotionalEmails">
+                                <span class="slider round"></span>
                             </label>
                         </div>
                     </div>
-                </section>
+                </div>
 
-                <!-- Contact & Support Section -->
-                <section class="contact-support-section">
-                    <div class="section-header">
-                        <i class="fas fa-headset"></i>
-                        <h3>Contact & Support</h3>
+                <!-- Dark Mode / Light Mode Card (Col 3) -->
+                <div class="lg:col-span-1 profile-card p-6 rounded-2xl shadow-xl lg:self-start">
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-lg font-bold">Dark Mode / Light Mode</p>
+                        <!-- Toggle Switch for Dark Mode (DEFAULT OFF) -->
+                        <label class="toggle-switch cursor-pointer" data-toggle-id="darkModeToggle">
+                            <!-- This input controls the dark mode functionality in the script -->
+                            <input type="checkbox" id="darkModeToggle">
+                            <span class="slider round"></span>
+                        </label>
                     </div>
+                    <p class="text-sm opacity-80">Customize your display setting. Dark Mode reduces eye strain, while Light Mode provides a bright and clean interface.</p>
+                </div>
+
+                <!-- Contact & Support Card (Full Width) -->
+                <div class="lg:col-span-3 profile-card p-6 rounded-2xl shadow-xl">
+                    <h3 class="text-2xl font-heading font-normal opacity-95 mb-6 flex items-center space-x-2">
+                        <i class="fas fa-headset text-xl opacity-80"></i>
+                        <span>Contact & Support</span>
+                    </h3>
                     
-                    <div class="contact-content">
-                        <div class="contact-info">
-                            <p class="contact-subtitle">Need help? You can find us at:</p>
+                    <p class="mb-4 opacity-90">Need help? You can find us at:</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                        
+                        <!-- Contact Info Column (Left) -->
+                        <div class="space-y-4 pl-6">
                             
-                            <div class="contact-details">
-                                <div class="contact-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <div class="contact-text">
-                                        <strong>Address</strong>
-                                        <span>413 Sanciangko Street, Cebu City</span>
-                                    </div>
+                            <!-- Address -->
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-map-marker-alt text-lg mt-1 opacity-80"></i>
+                                <div>
+                                    <p class="font-bold text-base">Address</p>
+                                    <p class="text-sm opacity-90">413 Sanciangko Street, Cebu City</p>
                                 </div>
-                                
-                                <div class="contact-item">
-                                    <i class="fas fa-envelope"></i>
-                                    <div class="contact-text">
-                                        <strong>Email</strong>
-                                        <span>wash.and.fold@gmail.com</span>
-                                    </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-envelope text-lg mt-1 opacity-80"></i>
+                                <div>
+                                    <p class="font-bold text-base">Email</p>
+                                    <p class="text-sm opacity-90">wash.and.fold@gmail.com</p>
                                 </div>
-                                
-                                <div class="contact-item">
-                                    <i class="fas fa-phone"></i>
-                                    <div class="contact-text">
-                                        <strong>Phone</strong>
-                                        <span>+63 923 345 7899 / 813 1234</span>
-                                    </div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-phone text-lg mt-1 opacity-80"></i>
+                                <div>
+                                    <p class="font-bold text-base">Phone</p>
+                                    <p class="text-sm opacity-90">+63 923 345 7899 / 813 1234</p>
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Feedback Form Column (Right) -->
+                        <form id="feedbackForm" class="space-y-4 md:-mt-20"> 
+                            <!-- Your Name -->
+                            <div class="form-field-wrapper"> 
+                                <label for="feedbackName" class="block text-sm opacity-80 mb-1">Your Name</label>
+                                <input type="text" id="feedbackName" name="feedbackName" placeholder="Name" class="profile-input p-3 rounded-xl w-full" required>
+                            </div>
 
-                        <!-- Feedback Form -->
-                        <div class="feedback-form-container">
-                            <form class="feedback-form" id="feedbackForm">
-                                <div class="form-group">
-                                    <label for="feedbackName">Your Name</label>
-                                    <input type="text" id="feedbackName" name="feedbackName" placeholder="Name" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="feedbackMessage">Your Message</label>
-                                    <textarea id="feedbackMessage" name="feedbackMessage" placeholder="Share your feedback here..." rows="4" required></textarea>
-                                </div>
-                                
-                                <button type="submit" class="send-feedback-btn">
+                            <!-- Your Message -->
+                            <div class="form-field-wrapper"> 
+                                <label for="feedbackMessage" class="block text-sm opacity-80 mb-1">Your Message</label>
+                                <textarea id="feedbackMessage" name="feedbackMessage" placeholder="Share your feedback here..." rows="4" class="profile-input p-3 rounded-xl w-full resize-none" required></textarea>
+                            </div>
+                            
+                            <!-- Send Feedback Button -->
+                            <div class="pt-2 flex justify-end">
+                                <button type="submit" class="primary-button py-2 px-6 rounded-full shadow-md">
                                     Send Feedback
                                 </button>
-                            </form>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </main>
-    </div>
+                            </div>
+                        </form>
 
-    <script src="shared-script.js"></script>
-    <script src="settings-script.js"></script>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+        
+        <!-- Feedback Success Modal/Message Box - Hidden by default -->
+        <div id="feedbackSuccessMessage" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden" style="backdrop-filter: blur(2px);">
+            <!-- Modal Content -->
+            <div class="modal-content p-6 rounded-xl shadow-2xl max-w-sm w-full text-center">
+                <div class="text-secondary mb-4">
+                    <i class="fas fa-paper-plane text-4xl"></i>
+                </div>
+                <h4 class="text-xl font-heading font-bold mb-2">Feedback Sent!</h4>
+                <p class="text-sm">Thank you for your valuable feedback. We appreciate your input!</p>
+                <button id="closeFeedbackSuccessMessage" class="mt-4 primary-button hover:bg-primary/80 text-text-light font-bold py-2 px-4 rounded-full transition duration-150">
+                    Close
+                </button>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- External JavaScript File (Handles Dark Mode, Sidebar, and Modals) -->
+    <script type="module" src="settings-script.js"></script>
+
 </body>
 </html>
-
