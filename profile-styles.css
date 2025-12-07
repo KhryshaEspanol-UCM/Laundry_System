@@ -1,456 +1,163 @@
-/* CSS Variables */
+/* Define Custom Fonts - Reusing Inria Serif */
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+
+/* Custom styles for the elegant teal/blue palette */
 :root {
-    --bg-gradient: linear-gradient(135deg, #4ecdc4 0%, #44a08d 50%, #093637 100%);
-    --sidebar-bg: rgba(255, 255, 255, 0.1);
-    --card-bg: rgba(255, 255, 255, 0.15);
-    --input-bg: rgba(255, 255, 255, 0.1);
-    --input-text: #ffffff;
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.8);
-    --border-color: rgba(255, 255, 255, 0.2);
-    --toggle-active: #4ecdc4;
-    --button-bg: #4ecdc4;
+    --color-primary: #58A5A2; /* NEW: Solid Background Color */
+    --color-secondary: #C1E7E5; /* Light Mint (Used for active sidebar state) */
+    --color-text-dark: #333333;
+    --color-text-light: #E0FFFF; /* Near White */
+    
+    /* Background gradient colors - set to solid color for single color request */
+    --color-body-gradient-start: #58A5A2; 
+    --color-body-gradient-end: #58A5A2; 
+
+    /* Solid dark color for the sidebar and profile cards */
+    --color-sidebar-dark: #4A8C8E;
 }
 
-/* Dark Mode Variables */
-.dark-mode {
-    --bg-gradient: linear-gradient(135deg, #1a1a2e, #16213e, #0f1419);
-    --sidebar-bg: rgba(26, 26, 46, 0.95);
-    --card-bg: rgba(0, 0, 0, 0.3);
-    --input-bg: rgba(255, 255, 255, 0.1);
-    --input-text: #fff;
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.8);
-    --border-color: rgba(255, 255, 255, 0.1);
-    --toggle-active: #64b5f6;
-    --button-bg: #64b5f6;
-}
-
-/* Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* 1. Apply the full-page gradient background (now solid due to identical start/end colors) */
 body {
-    font-family: 'Inria Serif', serif;
-    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d  50%, #093637 100%);
-    background: var(--bg-gradient);
-    min-height: 100vh;
-    color: #ffffff;
-    color: var(--text-primary);
-    line-height: 1.6;
+    background: linear-gradient(135deg, var(--color-body-gradient-start) 0%, var(--color-body-gradient-end) 100%);
+    color: var(--color-text-light); /* Default text color for the page background */
 }
 
-/* Page Container */
-.page-container {
-    display: flex;
-    min-height: 100vh;
+/* Apply custom fonts - both heading and body use Inria Serif */
+.font-heading {
+    font-family: 'Inria Serif', serif; 
+}
+.font-body {
+    font-family: 'Inria Serif', serif; 
 }
 
-/* Sidebar Styles */
-.sidebar {
-    width: 250px;
-    background-color: rgba(255, 255, 255, 0.1);
-    background-color: var(--sidebar-bg);
-    backdrop-filter: blur(10px);
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-    border-right: 1px solid var(--border-color);
-    padding: 20px 0;
-    position: fixed;
+/* Custom scrollbar styling for aesthetics */
+main::-webkit-scrollbar {
+    width: 8px;
+}
+main::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary);
+    border-radius: 10px;
+}
+main::-webkit-scrollbar-track {
+    background-color: transparent; /* Track blends into the body background */
+}
+
+/* Ensure the main content is scrollable and sits on the body background */
+#content-area {
     height: 100vh;
     overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 2rem;
+    background: none; /* No solid background to show the body background */
 }
 
-.sidebar-header {
-    text-align: center;
-    padding: 0 20px 30px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    border-bottom: 1px solid var(--border-color);
+/* Sidebar Styling (Solid dark color) */
+#sidebar {
+    background-color: var(--color-sidebar-dark);
 }
 
-.logo-icon {
-    background-color: rgba(255, 255, 255, 0.2);
-    background-color: var(--card-bg);
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 15px;
-}
-
-.logo-icon i {
-    font-size: 24px;
-    color: #ffffff;
-}
-
-.sidebar-header h2 {
-    color: #ffffff;
-    color: var(--text-primary);
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 1.2;
-}
-
-.sidebar-nav {
-    padding-top: 20px;
-    position: relative;
-    height: calc(100vh - 140px);
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    padding: 15px 20px;
-    color: rgba(255, 255, 255, 0.8);
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border-left: 3px solid transparent;
-    font-size: 14px;
-}
-
-.nav-item:hover,
-.nav-item.active {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    border-left-color: #ffffff;
-}
-
-.nav-item.logout {
-    position: absolute;
-    bottom: 20px;
-    width: calc(100% - 40px);
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-.nav-item i {
-    margin-right: 12px;
-    width: 20px;
-    text-align: center;
-    font-size: 16px;
-}
-
-/* Main Content */
-.main-content {
-    margin-left: 250px;
-    padding: 40px;
-    width: calc(100% - 250px);
-    flex: 1;
-}
-
-/* Page Header */
-.page-header {
-    margin-bottom: 40px;
-}
-
-.page-header h1 {
-    font-size: 48px;
-    font-weight: bold;
-    color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: var(--text-primary);
-}
-
-/* Profile Container */
-.profile-container {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 40px;
-    max-width: 1200px;
-}
-
-/* Profile Card */
+/* Card styling to match the image: solid, slightly transparent dark teal */
 .profile-card {
-    background-color: rgba(255, 255, 255, 0.15);
-    background-color: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 30px;
-    text-align: center;
-    height: fit-content;
+    background-color: rgba(74, 140, 142, 0.7); /* Semi-transparent sidebar dark color */
+    backdrop-filter: blur(5px); 
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: box-shadow 0.3s ease;
+}
+.profile-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.profile-picture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
-    background-color: var(--card-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
+/* Input field styling for contrast against the dark card background */
+.profile-input {
+    /* Fully white when editable (default) */
+    background-color: rgba(255, 255, 255, 1.0); 
+    color: var(--color-text-dark); /* Dark text for readability */
+    border: none;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, opacity 0.3s; /* Smooth visual transition */
 }
 
-.profile-picture i {
-    font-size: 40px;
-    color: #ffffff;
-    color: var(--text-primary);
+/* Style for readonly fields (View Mode - Default) */
+.profile-input:read-only {
+    cursor: default;
+    opacity: 0.9; 
+    background-color: rgba(255, 255, 255, 0.85); /* Slightly less bright white when read-only */
 }
 
-.profile-card h2 {
-    font-size: 24px;
+/* Button styling */
+.primary-button {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    transition: background-color 0.15s;
+}
+.primary-button:hover {
+    background-color: #489491; /* Adjusted hover state for new primary color */
+}
+
+.secondary-button {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
     font-weight: bold;
-    margin-bottom: 20px;
-    color: #ffffff;
-    color: var(--text-primary);
+    transition: background-color 0.15s;
+}
+.secondary-button:hover {
+    background-color: #B1D7D5; /* Slightly darker hover state */
 }
 
-.edit-profile-btn {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    background-color: var(--card-bg);
-    color: var(--text-primary);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
+/* --- Sidebar Minimization CSS (Desktop) --- */
+
+/* Minimized State applied to the body */
+.is-minimized #sidebar {
+    width: 5rem; /* 80px, w-20 equivalent */
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+/* Adjust main content margin */
+.is-minimized #content-area {
+    margin-left: 5rem; /* Match sidebar width */
+}
+
+/* Hide the title and navigation text when minimized */
+.is-minimized #sidebarTitle,
+.is-minimized .nav-text,
+.is-minimized .bottom-link-text {
+    display: none !important;
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+/* Adjust item layout when minimized (icon-only view) */
+.is-minimized .nav-item {
+    justify-content: center; /* Center the icon */
+    padding: 0.75rem 0.5rem; /* Tighter padding */
+    margin-left: 0;
+    margin-right: 0;
     width: 100%;
 }
 
-.edit-profile-btn:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
+/* Ensure icon width remains consistent */
+.nav-icon {
+    min-width: 1.25rem; /* w-5 */
 }
 
-/* Forms Section */
-.personal-info-section,
-.password-section {
-    background-color: rgba(255, 255, 255, 0.15);
-    background-color: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 30px;
-    margin-bottom: 30px;
+/* Show/Hide Header Elements */
+.is-minimized #expanded-header {
+    display: none;
 }
-
-.section-header {
+.is-minimized #minimized-header {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 25px;
+    justify-content: center;
+    width: 100%;
 }
 
-.section-header i {
-    font-size: 18px;
-    color: #ffffff;
-    color: var(--text-primary);
+/* Modal specific styling (ensures text/icon in modal look good on dark background) */
+.modal-content {
+    background-color: var(--color-sidebar-dark);
+    color: var(--color-text-light);
 }
 
-.section-header h3,
-.password-section h3 {
-    font-size: 20px;
-    font-weight: bold;
-    color: #ffffff;
-    color: var(--text-primary);
-    margin: 0;
-}
-
-/* Form Styles */
-.personal-info-form,
-.password-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.form-group label {
-    font-size: 14px;
-    font-weight: 500;
-    color: #ffffff;
-    color: var(--text-primary);
-}
-
-.form-group input {
-    padding: 12px 15px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    color: var(--text-primary);
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: rgba(255, 255, 255, 0.5);
-    background-color: rgba(255, 255, 255, 0.15);
-}
-
-.form-group input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
-}
-
-/* Save Button */
-.save-btn {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    background-color: var(--card-bg);
-    color: var(--text-primary);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    padding: 12px 30px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    align-self: flex-start;
-    margin-top: 10px;
-}
-
-.save-btn:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-}
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .profile-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    
-    .main-content {
-        padding: 30px;
-    }
-    
-    .page-header h1 {
-        font-size: 40px;
-    }
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        width: 200px;
-    }
-    
-    .main-content {
-        margin-left: 200px;
-        width: calc(100% - 200px);
-        padding: 20px;
-    }
-    
-    .page-header h1 {
-        font-size: 32px;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    
-    .personal-info-section,
-    .password-section {
-        padding: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .sidebar {
-        width: 60px;
-    }
-    
-    .sidebar-header h2 {
-        font-size: 10px;
-    }
-    
-    .nav-item span {
-        display: none;
-    }
-    
-    .nav-item {
-        justify-content: center;
-        padding: 15px 10px;
-    }
-    
-    .main-content {
-        margin-left: 60px;
-        width: calc(100% - 60px);
-        padding: 15px;
-    }
-    
-    .page-header h1 {
-        font-size: 28px;
-    }
-    
-    .profile-card {
-        padding: 20px;
-    }
-    
-    .profile-picture {
-        width: 80px;
-        height: 80px;
-    }
-    
-    .profile-picture i {
-        font-size: 30px;
-    }
-}
-
-/* Glassmorphism Effects */
-.sidebar,
-.profile-card,
-.personal-info-section,
-.password-section {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-/* Accessibility */
-.nav-item:focus,
-.edit-profile-btn:focus,
-.save-btn:focus,
-.form-group input:focus {
-    outline: 2px solid rgba(255, 255, 255, 0.5);
-    outline-offset: 2px;
-}
-
-/* Smooth Animations */
-.nav-item,
-.edit-profile-btn,
-.save-btn,
-.form-group input {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Print Styles */
-@media print {
-    .sidebar {
-        display: none;
-    }
-    
-    .main-content {
-        margin-left: 0;
-        width: 100%;
-    }
-    
-    body {
-        background: white;
-        color: black;
-    }
-}
+/* Tailwind Configuration (needs to stay in JS for CDN usage, but defining CSS variables here for clarity) */
+/* The actual Tailwind config logic is moved to the JS file, where it needs to be run before DOMContentLoaded */
