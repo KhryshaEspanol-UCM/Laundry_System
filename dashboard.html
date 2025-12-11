@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WASH & FOLD LAUNDRY SHOP Dashboard</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js" defer></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="dashboard.css">
+
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': 'var(--color-primary)',
+                        'primary-dark': '#4A8C8E',
+                        'secondary': 'var(--color-secondary)',
+                        'text-dark': 'var(--color-text-dark)',
+                        'text-light': 'var(--color-text-light)',
+                        'accent-pink': '#e5b8c0',
+                        'sidebar-light': 'var(--color-sidebar-light)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-body bg-gray-50">
+
+    <!-- Mobile Menu Button -->
+    <button id="menu-toggle" class="lg:hidden fixed top-4 left-4 z-40 p-2 rounded-full bg-primary text-text-light shadow-lg">
+        <i class="fas fa-bars text-xl"></i>
+    </button>
+    
+    <!-- DASHBOARD CONTAINER -->
+    <div class="flex min-h-screen">
+        
+        <!-- SIDEBAR -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-30 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out w-64 text-text-light p-6 flex flex-col justify-between shadow-xl bg-sidebar-light">
+            
+            <div>
+                <!-- Logo/Title -->
+                <div class="mb-10 flex justify-between items-center">
+                    <h1 class="text-xl font-heading font-semibold tracking-wider">WASH & FOLD LAUNDRY SHOP</h1>
+                    <button id="close-sidebar" class="lg:hidden text-2xl p-1 rounded-full hover:bg-secondary/20">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="space-y-3">
+                    <a href="dashboard.html" class="flex items-center space-x-3 p-3 rounded-xl bg-secondary text-primary font-bold shadow-md">
+                        <i class="fas fa-chart-line w-5 text-xl"></i>
+                        <span>DASHBOARD</span>
+                    </a>
+                    <a href="profile.html" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150">
+                        <i class="fas fa-user-circle w-5 text-xl"></i>
+                        <span>PROFILE</span>
+                    </a>
+                    <a href="orders.html" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150">
+                        <i class="fas fa-shopping-basket w-5 text-xl"></i>
+                        <span>ORDERS</span>
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- Bottom Links -->
+            <div class="space-y-3 pb-4">
+                <a href="settings.html" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150">
+                    <i class="fas fa-cog w-5 text-xl"></i>
+                    <span>SETTINGS</span>
+                </a>
+                <a href="mainpage.html" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150">
+                    <i class="fas fa-sign-out-alt w-5 text-xl"></i>
+                    <span>LOG OUT</span>
+                </a>
+            </div>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main id="content-area" class="lg:ml-64 w-full p-6 lg:p-10"> 
+            
+            <header class="mb-8 lg:mb-12">
+                <h2 class="text-5xl font-heading font-light text-text-dark/80">DASHBOARD</h2>
+            </header>
+
+            <div class="grid grid-cols-12 gap-6">
+
+                <!-- Sales & Info -->
+                <section class="col-span-12 lg:col-span-8 space-y-6">
+
+                    <!-- Sales Overview Chart -->
+                    <div class="bg-secondary p-6 rounded-2xl shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-text-dark/90 font-heading">SALES OVERVIEW</h3>
+                        <div class="bg-white p-4 rounded-xl shadow-inner border border-gray-100">
+                            <div class="h-64">
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="bg-secondary p-6 rounded-2xl shadow-lg">
+                        <div class="flex items-start mb-4">
+                            <div class="relative mr-3">
+                                <i class="fas fa-bell text-2xl text-text-dark/80"></i>
+                                <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full text-white">3</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-text-dark/90">NOTIFICATIONS</h3>
+                        </div>
+                        <ul class="list-disc ml-6 space-y-2 text-text-dark/80">
+                            <li>Your laundry <strong>#0209</strong> is ready for pickup!</li>
+                            <li>Please drop off your clothes before 6 PM today.</li>
+                            <li>You have 1 pending order awaiting confirmation.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Quick Action Cards -->
+                    <div class="grid grid-cols-3 gap-4 pt-2">
+                        <div class="bg-primary p-4 rounded-xl shadow-md text-text-light flex flex-col items-center justify-center cursor-pointer">
+                            <i class="fas fa-cart-plus text-3xl mb-2"></i>
+                            <span class="text-sm">NEW ORDERS</span>
+                        </div>
+                        <div class="bg-primary p-4 rounded-xl shadow-md text-text-light flex flex-col items-center justify-center cursor-pointer">
+                            <i class="fas fa-truck-moving text-3xl mb-2"></i>
+                            <span class="text-sm">PICK-UP REQUEST</span>
+                        </div>
+                        <div class="bg-primary p-4 rounded-xl shadow-md text-text-light flex flex-col items-center justify-center cursor-pointer">
+                            <i class="fas fa-hourglass-half text-3xl mb-2"></i>
+                            <span class="text-sm">EXPIRING TODAY</span>
+                        </div>
+                    </div>
+
+                    <!-- On-Going Orders -->
+                    <div class="pt-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-2xl font-semibold text-text-dark/90">ON-GOING ORDERS</h3>
+                            <a href="orders.html" class="text-primary-dark font-medium flex items-center hover:underline">
+                                VIEW ALL <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-secondary p-8 rounded-xl shadow-lg text-primary">
+                                <p class="text-sm font-bold mb-2">#0210</p>
+                                <p class="text-lg font-semibold">Khrysha Español</p>
+                                <p class="text-xs mb-1">01 November 2025</p>
+                                <p class="text-sm font-medium">Wash & Iron Package</p>
+                                <p class="text-xl font-bold mt-2">₱300.00</p>
+                            </div>
+                            <div class="bg-secondary p-8 rounded-xl shadow-lg text-primary">
+                                <p class="text-sm font-bold mb-2">#0211</p>
+                                <p class="text-lg font-semibold">Amber Pagusara</p>
+                                <p class="text-xs mb-1">01 November 2025</p>
+                                <p class="text-sm font-medium">Wash & Fold Package</p>
+                                <p class="text-xl font-bold mt-2">₱280.00</p>
+                            </div>
+                            <div class="bg-secondary p-8 rounded-xl shadow-lg text-primary">
+                                <p class="text-sm font-bold mb-2">#0212</p>
+                                <p class="text-lg font-semibold">John Doe</p>
+                                <p class="text-xs mb-1">01 November 2025</p>
+                                <p class="text-sm font-medium">Dry Clean Package</p>
+                                <p class="text-xl font-bold mt-2">₱380.00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- Shop Status & Membership -->
+                <section class="col-span-12 lg:col-span-4 space-y-6">
+
+                    <!-- Shop Status Card -->
+                    <div class="bg-secondary p-6 rounded-2xl shadow-lg">
+                        <div class="flex justify-between items-center mb-4">
+                            <p class="text-sm text-text-dark/80">Current Shop Status:</p>
+                            <span class="inline-block px-3 py-1 text-sm font-semibold rounded-full bg-red-400 text-white shadow-md">CLOSED</span>
+                        </div>
+                        <div class="border-t border-primary/30 pt-4 mt-4 space-y-3 text-text-dark/80">
+                            <h4 class="font-bold text-primary">SHOP HOURS</h4>
+                            <p class="text-sm">OPEN: MONDAY - SATURDAY</p>
+                            <p class="text-lg font-semibold text-text-dark">7:00 AM - 11:30 AM, 1:00 PM - 9:30 PM</p>
+                            <p class="text-sm font-bold text-red-500">CLOSED: SUNDAY & HOLIDAYS</p>
+                        </div>
+                        <div class="border-t border-primary/30 pt-4 mt-4 flex items-start space-x-3 text-text-dark/80">
+                            <i class="fas fa-map-marker-alt text-primary mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-primary">Address</h4>
+                                <p class="text-sm">413 Sanciangko Street, Cebu City</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly Spending Summary -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
+                        <h3 class="text-xl font-heading font-semibold mb-4 text-text-dark/90">Monthly Income Summary</h3>
+                        <div class="mb-4">
+                            <p class="text-4xl font-heading font-bold text-primary">₱ 1,350</p>
+                            <p class="text-sm text-gray-500">Total Income in October</p>
+                        </div>
+                        <div class="h-40">
+                            <canvas id="spendingChart"></canvas>
+                        </div>
+                    </div>
+
+                </section>
+
+            </div>
+
+        </main>
+    </div>
+
+    <script src="dashboard.js"></script>
+    <script src="shared-script.js"></script>
+</body>
+</html>
