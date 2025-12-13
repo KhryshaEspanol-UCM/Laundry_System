@@ -96,6 +96,55 @@ body {
     height: calc(100vh - 140px);
 }
 
+.sidebar-nav {
+  display:flex;
+  flex-direction:column;
+  height:100vh;
+  box-sizing:border-box;
+}
+
+.bottom-group {
+  margin-top: auto; /* pushes the whole group down */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* optional spacing between settings and logout */
+}
+
+.sidebar-nav {
+  display:flex;
+  flex-direction:column;
+  height:75vh;
+  box-sizing:border-box;
+}
+
+.bottom-group {
+  margin-top: auto; /* pushes the whole group down */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* optional spacing between settings and logout */
+}
+
+/* For Chrome, Edge, Safari */
+.sidebar::-webkit-scrollbar {
+    display: none;
+    overflow: hidden;
+}
+
+/* For Firefox */
+.sidebar {
+    scrollbar-width: none;
+    overflow: hidden;
+}
+
+
+.nav-item.logout {
+    margin-top: auto; /* pushes logout to bottom */
+}
+
+.nav-item.settings {
+    margin-top: auto; /* pushes settings down */
+}
+
 .nav-item {
     display: flex;
     align-items: center;
