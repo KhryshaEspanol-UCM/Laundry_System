@@ -13,7 +13,7 @@ const ordersData = {
     },
     'ORD-002': {
         id: 'ORD-002',
-        customerName: 'Sarah Johnson',
+        customerName: 'Khrysha Español',
         serviceType: 'Wash, Dry & Fold',
         status: 'in-progress',
         date: '2024-01-15',
@@ -24,7 +24,7 @@ const ordersData = {
     },
     'ORD-003': {
         id: 'ORD-003',
-        customerName: 'Michael Brown',
+        customerName: 'Amber Pagusara',
         serviceType: 'Iron Only',
         status: 'ready',
         date: '2024-01-14',
