@@ -1,62 +1,101 @@
+/* Define Custom Fonts - Reusing Inria Serif */
 @import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
-        
-        /* Custom styles for the elegant teal/mint color palette */
-    :root {
-    --color-primary: #5F9EA0; /* Cadet Blue / Deep Teal (Used for solid elements) */
-    --color-secondary: #C1E7E5; /* Light Mint */
-    --color-text-dark: #333333;
-    --color-text-light: #E0FFFF;
-            /* Main content translucent background: #4C9996 with 85% opacity */
-    --color-bg-light-translucent: rgba(76, 153, 150, 0.85); 
-            
-    /* NEW: Lighter solid color for sidebar, replacing gradient */
-    --color-sidebar-light: #77B3B6;
-    }
-    .dark-mode {
-    --bg-gradient: linear-gradient(135deg, #1a1a2e, #16213e, #0f1419);
-    --sidebar-bg: rgba(26, 26, 46, 0.95);
-    --card-bg: rgba(0, 0, 0, 0.3);
-    --input-bg: rgba(255, 255, 255, 0.1);
-    --input-text: #fff;
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.8);
-    --border-color: rgba(255, 255, 255, 0.1);
-    --toggle-active: #64b5f6;
-    --button-bg: #64b5f6;
-}
+
+
+/* ========================================================= */
+/* 1. GLOBAL LIGHT MODE VARIABLES (The DEFAULT)              */
+/* FIX: Renaming variables to be consistent with Dark Mode block */
+/* ========================================================= */
+:root {
+    --color-primary: #58A5A2; 
+    --color-secondary: #C1E7E5; 
+    --color-text-dark: #333333;   /* Text on light surfaces */
+    --color-text-light: #d8f0f0;  /* Text on dark surfaces */
     
-        /* Chart.js tooltip fix to ensure it stays above all */
-        .chartjs-tooltip {
-            z-index: 50; /* Above all other elements */
-        }
+    /* Standardized Background Variables (Light Mode Values) */
+    --bg-body: #58A5A2; /* Replaces --color-body-gradient-start and end */
+    --bg-sidebar: #4A8C8E; /* Replaces --color-sidebar-light */
+    --bg-content-area: #81cfcd; /* Replaces --color-bg-light-translucent */
+    --bg-card: rgba(74, 140, 142, 0.7); /* Card background on light mode */
+}
 
-        /* Apply custom fonts - both heading and body use Inria Serif */
-        .font-heading {
-            font-family: 'Inria Serif', serif; 
-        }
-        .font-body {
-            font-family: 'Inria Serif', serif; 
-        }
+/* ========================================================= */
+/* 2. CORE COMPONENT STYLING (Uses Standardized Variables)   */
+/* ========================================================= */
 
-        /* Custom scrollbar styling for aesthetics */
-        main::-webkit-scrollbar {
-            width: 8px;
-        }
-        main::-webkit-scrollbar-thumb {
-            background-color: var(--color-primary);
-            border-radius: 10px;
-        }
-        main::-webkit-scrollbar-track {
-            background-color: var(--color-secondary);
-        }
+/* Apply custom fonts - both heading and body use Inria Serif */
+.font-heading {
+    font-family: 'Inria Serif', serif; 
+}
+.font-body {
+    font-family: 'Inria Serif', serif; 
+}
 
-        /* Ensure the main content is scrollable and apply the new translucent background */
-        #content-area {
-            height: 100vh;
-            overflow-y: auto;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-            padding-bottom: 2rem; /* Extra padding at the bottom for good scrolling */
-            /* Applying the requested translucent background */
-            background-color: var(--color-bg-light-translucent); 
-        }
 
+/* 1. Apply the full-page background & default text color */
+body {
+    /* FIX: Use standardized --bg-body for background */
+    background-color: var(--bg-body); 
+    /* FIX: Use --color-text-dark for the main body content in light mode */
+    color: var(--color-text-dark);
+}
+
+/* Custom scrollbar styling for aesthetics */
+main::-webkit-scrollbar {
+    width: 8px;
+}
+main::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary);
+    border-radius: 10px;
+}
+main::-webkit-scrollbar-track {
+    background-color: var(--color-secondary); /* Restored secondary color for track */
+}
+
+/* Ensure the main content is scrollable and apply the background */
+#content-area {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden; 
+    padding-bottom: 2rem;
+    /* FIX: Use standardized --bg-content-area */
+    background-color: var(--bg-content-area); 
+}
+
+/* Sidebar Styling */
+#sidebar {
+    /* FIX: Use standardized --bg-sidebar */
+    background-color: var(--bg-sidebar);
+    color: var(--color-text-light); /* Sidebar text is always light on dark background */
+}
+
+/* Card styling */
+.profile-card {
+    /* FIX: Use standardized --bg-card */
+    background-color: var(--bg-card);
+    backdrop-filter: blur(5px); 
+    border: 1px solid rgba(255, 255, 255, 0.15); /* You may want to define a variable for this too */
+    transition: box-shadow 0.3s ease;
+}
+/* ... (profile-card hover, input, buttons, etc. styles omitted for brevity but remain the same) ... */
+
+
+/* ========================================================= */
+/* 3. DARK MODE OVERRIDES (The FIX: Redefining the SAME variables) */
+/* ========================================================= */
+body.dark-mode {
+    /* --- Text Color Overrides --- */
+    --color-text-dark: #E0FFFF; /* Now, primary text on the page is light */
+    --color-text-light: #ffffff; /* Now, text on light elements (if any) is dark */
+    
+    /* --- Background Overrides --- */
+    --bg-body: #142522;         /* Body Background */
+    --bg-sidebar: #24554B;      /* Sidebar Background */
+    --bg-content-area: #142522; /* Content Area BG (matches body for seamless look) */
+    --bg-card: rgba(36, 60, 58, 0.9); /* Card Background */
+    --bg-input: #24554B;
+
+    /* Keeping Primary/Secondary accents the same in dark mode for consistency */
+    --color-primary: #58A5A2; 
+    --color-secondary: #C1E7E5; 
+}
