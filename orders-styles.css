@@ -23,13 +23,14 @@
     --sidebar-bg: #24554B;
     --card-bg: rgba(36, 60, 58, 0.9);
     --card-bg-alt: rgba(45, 75, 70, 0.9); /* Adjusted alt dark mode color for hover */
-    --input-bg: rgba(255, 255, 255, 0.1);
-    --input-text: #fff;
+    --input-bg: rgb(3, 87, 40);
+    --input-text: #feffff;
     --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.8);
-    --border-color: rgba(255, 255, 255, 0.1);
-    --toggle-active: #82E0AA; /* Brighter accent for dark mode */
-    --button-bg: #4CAF50; /* Changed button to green for contrast */
+    --text-secondary: rgb(255, 255, 255);
+    --border-color: rgb(1, 58, 25);
+    --toggle-active: #45c97e; /* Brighter accent for dark mode */
+    --button-bg: #053f24; /* Changed button to green for contrast */
+    
 }
 
 /* Base Styles */
