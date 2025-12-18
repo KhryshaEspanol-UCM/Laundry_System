@@ -1,274 +1,233 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Laundry Shop - Orders</title>
-        <link rel="stylesheet" href="orders-styles.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    </head>
-    <body>
-        <div class="page-container">
-            <!-- Sidebar Navigation -->
-            <aside class="sidebar">
-                <div class="sidebar-header">
-                    <div class="logo-icon">
-                        <i class="fas fa-tshirt"></i>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WASH & FOLD LAUNDRY SHOP - Orders</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="orders-styles.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#58A5A2',
+                        secondary: '#C1E7E5',
+                        'sidebar-dark': '#4A8C8E',
+                        'text-light': '#E0FFFF',
+                        'label-dark': '#1e3a39',
+                    },
+                    fontFamily: {
+                        heading: ['Inria Serif', 'serif'],
+                        body: ['Inria Serif', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer components {
+            .nav-item { @apply flex items-center space-x-3 p-3 rounded-xl transition duration-150; }
+            .content-box, .summary-card { @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl p-6; }
+            .profile-input { @apply bg-secondary text-primary font-semibold outline-none transition duration-150 focus:ring-2 focus:ring-white/20; }
+            .primary-button, .action-btn { @apply bg-secondary text-primary font-bold hover:bg-secondary/80 transition duration-150; }
+            .status-badge { @apply px-3 py-1 rounded-full text-sm font-bold uppercase; color: #E0FFFF; }
+        }
+    </style>
+</head>
+<body class="transition-[margin] duration-300">
+
+    <button id="menu-toggle" class="lg:hidden fixed top-4 left-4 z-40 p-2 rounded-full bg-primary text-text-light shadow-lg">
+        <i class="fas fa-bars text-xl"></i>
+    </button>
+    
+    <div class="flex min-h-screen">
+        
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-30 transform -translate-x-full lg:translate-x-0 transition-all duration-300 ease-in-out w-64 text-text-light p-6 flex flex-col justify-between shadow-xl bg-sidebar-dark">
+            <div>
+                <div class="mb-10 flex flex-col items-start">
+                    <div id="expanded-header" class="flex justify-between items-start w-full">
+                        <h1 id="sidebarTitle" class="text-xl font-heading font-semibold tracking-wider leading-tight">
+                            WASH & FOLD LAUNDRY SHOP
+                        </h1>
+                        <button id="minimizeSidebar" class="hidden lg:block text-sm p-1 rounded-md border-2 border-text-light hover:bg-secondary/20 transition duration-150 flex-shrink-0 ml-4">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <button id="close-sidebar" class="lg:hidden text-2xl p-1 rounded-full hover:bg-secondary/20 flex-shrink-0">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
-                    <h2>WASH & FOLD<br>LAUNDRY SHOP</h2>
+
+                    <div id="minimized-header" class="hidden">
+                        <button id="maximizeSidebar" class="text-3xl p-1 rounded-full hover:bg-secondary/20 transition duration-150">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
                 </div>
-                <nav class="sidebar-nav">
-                    <a href="dashboard.html" class="nav-item">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>DASHBOARD</span>
+
+                <nav class="space-y-3">
+                    <a href="dashboard.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150 text-text-light">
+                        <i class="fas fa-chart-line text-xl"></i>
+                        <span class="nav-text">DASHBOARD</span>
                     </a>
-                    <a href="profile.html" class="nav-item">
-                        <i class="fas fa-user"></i>
-                        <span>PROFILE</span>
+                    <a href="profile.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150 text-text-light">
+                        <i class="fas fa-user-circle text-xl"></i>
+                        <span class="nav-text">PROFILE</span>
                     </a>
-                    <a href="orders.html" class="nav-item active">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span>ORDERS</span>
+                    <a href="orders.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl bg-secondary text-primary font-bold shadow-md">
+                        <i class="fas fa-shopping-basket text-xl"></i>
+                        <span class="nav-text">ORDERS</span>
                     </a>
-            <!-- Bottom Links -->
+                </nav>
+            </div>
+            
             <div class="space-y-3 pb-4">
-                <!-- Settings link -->
                 <a href="settings.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150 text-text-light">
-                    <i class="fas fa-cog nav-icon text-xl"></i>
+                    <i class="fas fa-cog text-xl"></i>
                     <span class="bottom-link-text">SETTINGS</span>
                 </a>
-                <!-- Log Out link -->
-                <a href="mainpage.html" class="nav-item flex items-center space-x-3 p-3 rounded-xl hover:bg-secondary/20 transition duration-150 text-text-light">
-                    <i class="fas fa-sign-out-alt nav-icon text-xl"></i>
+                <a href="login.html" class="nav-item text-text-light hover:bg-secondary/20">
+                    <i class="fas fa-sign-out-alt text-xl"></i>
                     <span class="bottom-link-text">LOG OUT</span>
                 </a>
             </div>
-</nav>
-            </aside>
+        </aside>
 
-            <!-- Main Content -->
-            <main class="main-content">
-                <!-- Header Section -->
-                <header class="page-header">
-                    <h1>ORDERS</h1>
-                    <div class="header-actions">
-                        <button class="action-btn new-order-btn">
-                            <i class="fas fa-plus"></i>
-                            <span>New Order</span>
-                        </button>
-                        <div class="filter-dropdown">
-                            <select id="statusFilter" aria-label="Filter orders by status">
-                                <option value="all">All Status</option>
-                                <option value="pending">Pending</option>
-                                <option value="in-progress">In Progress</option>
-                                <option value="completed">Completed</option>
-                                <option value="ready">Ready for Pickup</option>
-                            </select>
-                        </div>
-                    </div>
-                </header>
+        <main id="content-area" class="lg:ml-64 w-full p-6 lg:p-10 transition-all duration-300"> 
+            
+            <header class="mb-10 lg:mb-16 relative flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h2 class="text-6xl font-heading font-light mb-2 uppercase opacity-80 tracking-tighter">ORDERS</h2>
+                    <p class="text-lg opacity-80 italic ml-2 font-light">Manage and track customer laundry requests.</p>
+                </div>
+                <button class="action-btn new-order-btn mt-6 md:mt-0 py-3 px-8 rounded-full shadow-lg flex items-center space-x-2 text-sm tracking-widest uppercase">
+                    <i class="fas fa-plus"></i>
+                    <span>NEW ORDER</span>
+                </button>
+            </header>
 
-                <!-- Orders Summary Cards -->
-                <section class="orders-summary" aria-label="Orders summary">
-                    <div class="summary-card pending">
-                        <div class="summary-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="summary-info">
-                            <h3>5</h3>
-                            <p>Pending Orders</p>
-                        </div>
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                <div class="summary-card flex items-center space-x-4">
+                    <div class="bg-black/20 w-12 h-12 flex items-center justify-center rounded-xl text-secondary"><i class="fas fa-clock text-xl"></i></div>
+                    <div class="summary-info">
+                        <h3 class="text-2xl font-bold font-heading" id="count-pending">0</h3>
+                        <p class="text-sm uppercase tracking-widest opacity-60">Pending</p>
                     </div>
-                    <div class="summary-card in-progress">
-                        <div class="summary-icon">
-                            <i class="fas fa-spinner"></i>
-                        </div>
-                        <div class="summary-info">
-                            <h3>8</h3>
-                            <p>In Progress</p>
-                        </div>
+                </div>
+                <div class="summary-card flex items-center space-x-4">
+                    <div class="bg-black/20 w-12 h-12 flex items-center justify-center rounded-xl text-secondary"><i class="fas fa-spinner text-xl"></i></div>
+                    <div class="summary-info">
+                        <h3 class="text-2xl font-bold font-heading" id="count-in-progress">0</h3>
+                        <p class="text-sm uppercase tracking-widest opacity-60">In Progress</p>
                     </div>
-                    <div class="summary-card ready">
-                        <div class="summary-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="summary-info">
-                            <h3>3</h3>
-                            <p>Ready for Pickup</p>
-                        </div>
+                </div>
+                <div class="summary-card flex items-center space-x-4">
+                    <div class="bg-black/20 w-12 h-12 flex items-center justify-center rounded-xl text-secondary"><i class="fas fa-check-circle text-xl"></i></div>
+                    <div class="summary-info">
+                        <h3 class="text-2xl font-bold font-heading" id="count-ready">0</h3>
+                        <p class="text-sm uppercase tracking-widest opacity-60">Ready</p>
                     </div>
-                    <div class="summary-card completed">
-                        <div class="summary-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div class="summary-info">
-                            <h3>24</h3>
-                            <p>Completed Today</p>
-                        </div>
+                </div>
+                <div class="summary-card flex items-center space-x-4">
+                    <div class="bg-black/20 w-12 h-12 flex items-center justify-center rounded-xl text-secondary"><i class="fas fa-trophy text-xl"></i></div>
+                    <div class="summary-info">
+                        <h3 class="text-2xl font-bold font-heading" id="count-completed">0</h3>
+                        <p class="text-sm uppercase tracking-widest opacity-60">Completed</p>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- Orders Table -->
-                <section class="orders-table-section" aria-label="Orders table">
-                    <div class="table-container">
-                        <table class="orders-table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Order ID</th>
-                                    <th scope="col">Customer Name</th>
-                                    <th scope="col">Service Type</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ordersTableBody">
-                                <tr data-status="pending">
-                                    <td data-label="Order ID">#ORD-001</td>
-                                    <td data-label="Customer Name">John Smith</td>
-                                    <td data-label="Service Type">Wash & Dry</td>
-                                    <td data-label="Status"><span class="status-badge pending">Pending</span></td>
-                                    <td data-label="Date">2024-01-15</td>
-                                    <td data-label="Actions">
-                                        <button class="view-details-btn" onclick="openOrderModal('ORD-001')" aria-label="View details for order ORD-001">
-                                            <i class="fas fa-eye"></i>
-                                            <span>View Details</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr data-status="in-progress">
-                                    <td data-label="Order ID">#ORD-002</td>
-                                    <td data-label="Customer Name">Khrysha Español</td>
-                                    <td data-label="Service Type">Wash, Dry & Fold</td>
-                                    <td data-label="Status"><span class="status-badge in-progress">In Progress</span></td>
-                                    <td data-label="Date">2024-01-15</td>
-                                    <td data-label="Actions">
-                                        <button class="view-details-btn" onclick="openOrderModal('ORD-002')" aria-label="View details for order ORD-002">
-                                            <i class="fas fa-eye"></i>
-                                            <span>View Details</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr data-status="ready">
-                                    <td data-label="Order ID">#ORD-003</td>
-                                    <td data-label="Customer Name">Amber Pagusara</td>
-                                    <td data-label="Service Type">Iron Only</td>
-                                    <td data-label="Status"><span class="status-badge ready">Ready for Pickup</span></td>
-                                    <td data-label="Date">2024-01-14</td>
-                                    <td data-label="Actions">
-                                        <button class="view-details-btn" onclick="openOrderModal('ORD-003')" aria-label="View details for order ORD-003">
-                                            <i class="fas fa-eye"></i>
-                                            <span>View Details</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr data-status="completed">
-                                    <td data-label="Order ID">#ORD-004</td>
-                                    <td data-label="Customer Name">Emily Davis</td>
-                                    <td data-label="Service Type">Full Service</td>
-                                    <td data-label="Status"><span class="status-badge completed">Completed</span></td>
-                                    <td data-label="Date">2024-01-14</td>
-                                    <td data-label="Actions">
-                                        <button class="view-details-btn" onclick="openOrderModal('ORD-004')" aria-label="View details for order ORD-004">
-                                            <i class="fas fa-eye"></i>
-                                            <span>View Details</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr data-status="in-progress">
-                                    <td data-label="Order ID">#ORD-005</td>
-                                    <td data-label="Customer Name">David Wilson</td>
-                                    <td data-label="Service Type">Wash & Dry</td>
-                                    <td data-label="Status"><span class="status-badge in-progress">In Progress</span></td>
-                                    <td data-label="Date">2024-01-15</td>
-                                    <td data-label="Actions">
-                                        <button class="view-details-btn" onclick="openOrderModal('ORD-005')" aria-label="View details for order ORD-005">
-                                            <i class="fas fa-eye"></i>
-                                            <span>View Details</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr data-status="pending">
-                                    <td data-label="Order ID">#ORD-006</td>
-                                    <td data-label="Customer Name">Lisa Anderson</td>
-                                    <td data-label="Service Type">Dry Clean</td>
-                                    <td data-label="Status"><span class="status-badge pending">Pending</span></td>
-                                    <td data-label="Date">2024-01-15</td>
-                                    <td data-label="Actions">
-                                        <button class="view-details-btn" onclick="openOrderModal('ORD-006')" aria-label="View details for order ORD-006">
-                                            <i class="fas fa-eye"></i>
-                                            <span>View Details</span>
-                                        </button>
-                                    </td>
-                                </tr>
+            <section class="content-box">
+                <div class="flex items-center space-x-3 mb-6">
+                    <i class="fas fa-list-ul text-xl opacity-60 text-secondary"></i>
+                    <h3 class="text-2xl font-heading font-normal uppercase tracking-wide">Recent Transactions</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b border-white/20 text-sm uppercase tracking-[0.2em] opacity-50">
+                                <th class="pb-4 px-2">Order ID</th>
+                                <th class="pb-4 px-2">Customer</th>
+                                <th class="pb-4 px-2">Service</th>
+                                <th class="pb-4 px-2">Status</th>
+                                <th class="pb-4 px-2 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody" class="divide-y divide-white/5 text-base">
                             </tbody>
-                        </table>
-                    </div>
-                </section>
-            </main>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
 
-        <!-- Order Details Modal -->
-        <div id="orderModal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
-            <div class="modal-overlay" onclick="closeOrderModal()"></div>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 id="modal-title" class="modal-title">Order Details</h2>
-                    <button class="close-btn" onclick="closeOrderModal()" aria-label="Close modal">&times;</button>
+    <div id="newOrderModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden">
+        <div class="bg-sidebar-dark p-8 rounded-2xl shadow-2xl max-w-lg w-full mx-4 border border-white/10 text-text-light">
+            <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+                <h2 class="text-2xl font-heading font-bold uppercase tracking-wider text-secondary">Create New Order</h2>
+                <button onclick="toggleNewOrderModal()" class="text-2xl opacity-70 hover:opacity-100">&times;</button>
+            </div>
+            
+            <form id="newOrderForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-bold uppercase tracking-widest opacity-70 mb-2">Customer Name</label>
+                    <input type="text" id="newCustomerName" class="profile-input p-3 rounded-xl w-full text-base" placeholder="e.g. Jane Doe" required>
                 </div>
-                <div class="modal-body">
-                    <div class="order-info-grid">
-                        <div class="info-group">
-                            <label>Order ID:</label>
-                            <span id="modalOrderId">#ORD-001</span>
-                        </div>
-                        <div class="info-group">
-                            <label>Customer Name:</label>
-                            <span id="modalCustomerName">John Smith</span>
-                        </div>
-                        <div class="info-group">
-                            <label>Service Type:</label>
-                            <span id="modalServiceType">Wash & Dry</span>
-                        </div>
-                        <div class="info-group">
-                            <label>Status:</label>
-                            <span id="modalStatus" class="status-badge pending">Pending</span>
-                        </div>
-                        <div class="info-group">
-                            <label>Order Date:</label>
-                            <span id="modalDate">2024-01-15</span>
-                        </div>
-                        <div class="info-group">
-                            <label>Estimated Completion:</label>
-                            <span id="modalEstimated">2024-01-16 14:00</span>
-                        </div>
-                        <div class="info-group">
-                            <label>Total Amount:</label>
-                            <span id="modalAmount">$25.00</span>
-                        </div>
-                        <div class="info-group">
-                            <label>Payment Status:</label>
-                            <span id="modalPayment">Paid</span>
-                        </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold uppercase tracking-widest opacity-70 mb-2">Service Type</label>
+                        <select id="newServiceType" class="profile-input p-3 rounded-xl w-full appearance-none text-base">
+                            <option>Wash & Dry</option>
+                            <option>Wash, Dry & Fold</option>
+                            <option>Dry Clean</option>
+                            <option>Iron Only</option>
+                        </select>
                     </div>
-                    <div class="notes-section">
-                        <label>Additional Notes:</label>
-                        <p id="modalNotes">Handle with care. Customer requested extra fabric softener.</p>
-                    </div>
-                    <div class="modal-actions">
-                        <button class="action-btn update-status-btn">
-                            <i class="fas fa-edit"></i>
-                            <span>Update Status</span>
-                        </button>
-                        <button class="action-btn print-btn">
-                            <i class="fas fa-print"></i>
-                            <span>Print Receipt</span>
-                        </button>
+                    <div>
+                        <label class="block text-sm font-bold uppercase tracking-widest opacity-70 mb-2">Weight (kg)</label>
+                        <input type="number" id="newWeight" class="profile-input p-3 rounded-xl w-full text-base" placeholder="0.0">
                     </div>
                 </div>
+
+                <div>
+                    <label class="block text-sm font-bold uppercase tracking-widest opacity-70 mb-2">Special Instructions</label>
+                    <textarea id="newNotes" class="profile-input p-3 rounded-xl w-full h-24 resize-none text-base" placeholder="e.g. Separate whites..."></textarea>
+                </div>
+
+                <div class="pt-4 flex gap-3">
+                    <button type="submit" class="primary-button flex-1 py-3 rounded-full text-sm">Confirm Order</button>
+                    <button type="button" onclick="toggleNewOrderModal()" class="bg-black/20 text-text-light flex-1 py-3 rounded-full hover:bg-black/40 transition">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="orderModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden">
+        <div class="bg-sidebar-dark p-8 rounded-2xl shadow-2xl max-w-lg w-full mx-4 border border-white/10 text-text-light">
+            <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+                <h2 id="modalOrderId" class="text-2xl font-heading font-bold text-secondary uppercase tracking-wide">Order Details</h2>
+                <button onclick="closeOrderModal()" class="text-2xl opacity-70 hover:opacity-100">&times;</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-base mb-8" id="modal-body-content">
+                <div><p class="text-sm uppercase tracking-widest opacity-50 mb-1">Customer</p><p id="modalCustomerName" class="font-bold text-lg"></p></div>
+                <div><p class="text-sm uppercase tracking-widest opacity-50 mb-1">Service Type</p><p id="modalServiceType" class="text-lg"></p></div>
+                <div><p class="text-sm uppercase tracking-widest opacity-50 mb-1">Current Status</p><span id="modalStatus" class="status-badge"></span></div>
+                <div><p class="text-sm uppercase tracking-widest opacity-50 mb-1">Order Date</p><p id="modalDate" class="font-medium"></p></div>
+                <div><p class="text-sm uppercase tracking-widest opacity-50 mb-1">Estimate</p><p id="modalEstimated" class="font-medium"></p></div>
+                <div><p class="text-sm uppercase tracking-widest opacity-50 mb-1">Amount</p><p id="modalAmount" class="text-secondary font-bold text-xl"></p></div>
+                <div class="col-span-2"><p class="text-sm uppercase tracking-widest opacity-50 mb-1">Notes</p><p id="modalNotes" class="italic bg-black/10 p-3 rounded-lg text-base"></p></div>
+            </div>
+            <div class="flex flex-col md:flex-row gap-3">
+                <button class="primary-button flex-1 py-3 rounded-full uppercase text-sm tracking-widest">Print Receipt</button>
+                <button class="bg-black/20 hover:bg-black/40 flex-1 py-3 rounded-full uppercase text-sm tracking-widest transition">Update Status</button>
             </div>
         </div>
+    </div>
 
-        <script src="shared-script.js"></script>
-        <script src="orders-script.js"></script>
-    </body>
-    </html>
+    <script src="orders-script.js"></script>
+</body>
+</html>
